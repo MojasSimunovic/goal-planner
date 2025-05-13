@@ -38,3 +38,33 @@ main {
 .fa-icon {
   margin-right: 0.5rem;
 }
+
+.modal-content input.form-control {
+  background-color: #222;
+  border: 1px solid #444;
+  color: white;
+}
+.modal-content input.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.nav-tabs .nav-link {
+  color: #ccc;
+}
+.nav-tabs .nav-link.active {
+  color: #fff;
+  background-color: #1f1f1f;
+  border-color: #333 #333 #1f1f1f;
+}
+
+/* Input dark styles */
+.modal-content input.form-control {
+  background-color: #222;
+  border: 1px solid #444;
+  color: #fff;
+}
+.modal-content input.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
