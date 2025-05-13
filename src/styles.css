@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+/* Make body background darker to match the navbar */
+body {
+  margin: 0;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Ensure navbar brand and links are clearly visible */
+.navbar-dark .navbar-brand,
+.navbar-dark .nav-link {
+  color: #ffffff !important;
+}
+
+/* Hover effect for nav links */
+.navbar-dark .nav-link:hover {
+  color: #dddddd !important;
+}
+
+/* Make buttons stand out */
+.btn-outline-light {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.btn-outline-light:hover {
+  background-color: #ffffff;
+  color: #121212;
+}
+
+/* Optional: spacing for the page content */
+main {
+  padding: 2rem;
+}
+
+/* Font Awesome icons spacing */
+.fa-icon {
+  margin-right: 0.5rem;
+}
