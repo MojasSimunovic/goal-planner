@@ -1,1 +1,71 @@
-<p>new-goal works!</p>
+<div class="container">
+  <div class="row pt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="goalForm">
+            <div class="row">
+              <div class="col-7">
+                <div class="mb-3">
+                  <label for="" class="form-label">Goal title</label>
+                  <input type="text" formControlName="goalName" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Start Date</label>
+                  <input type="date" formControlName="startDate" class="form-control">
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Target Date</label>
+                  <input type="date" class="form-control" formControlName="endDate">
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Description</label>
+                  <textarea class="form-control" formControlName="description"></textarea>
+                </div>
+              </div>
+              <div class="col-5" formArrayName="milestones">
+                @for (item of milestoneList.controls;track $index) {
+                  <ng-container [formGroupName]="$index">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="mb-1">
+                          <label for="" class="form-label">Milestone Title</label>
+                          <input type="text" class="form-control" formControlName="milestoneName">
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="mb-1">
+                          <label for="" class="form-label">Milestone Target Date</label>
+                          <input type="date" class="form-control" formControlName="targetDate">
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="mb-3">
+                          <label for="" class="form-label">Description</label>
+                          <textarea class="form-control" formControlName="description"></textarea>
+                        </div>
+                      </div>
+                      @if ($last) {
+                        <div class="col-4 text-end my-auto ">
+                          <button type="button" class="btn btn-outline-secondary" (click)="createNewMilestoneForm()">+</button>
+                        </div>
+                      }
+                     
+                    </div>
+                  </ng-container>
+                }
+              </div>
+            </div>
+            <div class="row pt-3">
+              <div class="col-12 text-center">
+                <button type="button" class="btn btn-success">Create goal</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+

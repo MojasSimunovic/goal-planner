@@ -1,1 +1,41 @@
-<p>goal-list works!</p>
+<div class="container py-5">
+  <div class="d-flex">
+    <h1 class="fw-bold">Goals</h1>
+    <button class="btn btn-primary" (click)="navigateToNewGoal()">
+      <i class="fas fa-plus me-2" ></i>
+      New Goal</button>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card goal-card">
+        <div class="card-body">
+          <h5 class="card-title">
+            Learn Web development
+          </h5>
+          <div class="progress mb-3">
+            <div class="progress-bar">
+
+            </div>
+          </div>
+          <h6 class="card-subtitle">
+
+          </h6>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between">
+              html and css
+              <span class="badge bg-success">Complete</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              html and css
+              <span class="badge bg-warning">In progress</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              html and css
+              <span class="badge bg-danger">Pending</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

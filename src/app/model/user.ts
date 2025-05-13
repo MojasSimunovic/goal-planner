@@ -1,15 +1,15 @@
 export interface UserLogin {
-  "emailId": string,
-  "password": string
+  emailId: string,
+  password: string
 
 }
 
 export interface UserRegister {
-  "userId": number,
-  "emailId": string,
-  "password": string,
-  "fullName": string,
-  "mobileNo": string  
+  userId: number,
+  emailId: string,
+  password: string,
+  fullName: string,
+  mobileNo: string  
 }
 
 export interface LoggedUserData {
