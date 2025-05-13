@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
+ <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a href="" class="navbar-brand fw-bold">
       <i class="fas fa-check-double me-2"></i>
@@ -25,16 +25,23 @@
         </li>
       </ul>
 
-      <div class="d-flex">
-        <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#authModal">
-          <i class="fas fa-user me-2"></i> Login
-        </button>
+      <div class="d-flex align-items-center">
+        @if (isLoggedIn()) {
+          <p class=" mb-0 me-2"><i class="fas fa-user me-2"></i>{{ loggedUserData.fullName }}</p>
+          <button class="btn btn-outline-light btn-danger" (click)="logout()">
+             Logout
+          </button>
+        } @else {
+          <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#authModal">
+            <i class="fas fa-user me-2"></i> Login
+          </button>
+        }
       </div>
     </div>
   </div>
 </nav>
 
-<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true" #authModalRef>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header border-0 pb-0">
@@ -59,37 +66,37 @@
           <div class="tab-pane fade show active" id="loginTabPane" role="tabpanel" aria-labelledby="login-tab">
             <form>
               <div class="mb-3">
-                <label for="loginEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com">
+                <label for="loginEmail" class="form-label" >Email address</label>
+                <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" name="loginEmail" [(ngModel)]="loginObject.emailId">
               </div>
               <div class="mb-3">
                 <label for="loginPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="loginPassword" placeholder="••••••••">
+                <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" name="login-password" [(ngModel)]="loginObject.password">
               </div>
-              <button type="submit" class="btn btn-primary w-100">Login</button>
+              <button type="submit" class="btn btn-primary w-100" (click)="onLogin()">Login</button>
             </form>
           </div>
 
           <!-- Sign Up Tab -->
           <div class="tab-pane fade" id="signupTabPane" role="tabpanel" aria-labelledby="signup-tab">
-            <form>
+            <form name>
               <div class="mb-3">
-                <label for="signupName" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="signupName" placeholder="Your full name">
+                <label for="signupName" class="form-label" >Full Name</label>
+                <input type="text" class="form-control" id="signupName" placeholder="Your full name" name="fullName" [(ngModel)]="registerObject.fullName">
               </div>
               <div class="mb-3">
-                <label for="signupEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="signupEmail" placeholder="name@example.com">
+                <label for="signupEmail" class="form-label" >Email address</label>
+                <input type="email" class="form-control" id="signupEmail" name="emailId" placeholder="name@example.com" [(ngModel)]="registerObject.emailId">
               </div>
               <div class="mb-3">
-                <label for="signupPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="signupPassword" placeholder="Create a password">
+                <label for="signupPassword" class="form-label" >Password</label>
+                <input type="password" class="form-control" id="signupPassword" name="password" placeholder="Create a password" [(ngModel)]="registerObject.password">
               </div>
               <div class="mb-3">
-                <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="signupCofirmPassword" placeholder="Confirm password">
+                <label for="mobileNumber" class="form-label">Mobile number</label>
+                <input type="text" class="form-control" id="mobileNumber" name="mobileNo" placeholder="Mobile Number" [(ngModel)]="registerObject.mobileNo">
               </div>
-              <button type="submit" class="btn btn-success w-100">Sign Up</button>
+              <button type="submit" class="btn btn-success w-100" (click)="onRegister()">Sign Up</button>
             </form>
           </div>
 
