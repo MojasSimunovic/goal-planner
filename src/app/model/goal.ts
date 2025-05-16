@@ -5,7 +5,7 @@ export interface Goal {
   startDate: string,
   endDate: string,
   isAchieved: boolean,
-  userId: number,
+  userId: number, 
   milestones: [
     {
       milestoneId: number,
@@ -15,4 +15,15 @@ export interface Goal {
       isCompleted: boolean
     }
   ]
+}
+
+export interface GoalWithoutMilestone {
+
+  goalId: number,
+  goalName: string,
+  description: string,
+  startDate: string,
+  endDate: string,
+  isAchieved: boolean,
+  userId: number, 
 }

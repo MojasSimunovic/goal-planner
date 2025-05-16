@@ -25,11 +25,7 @@ export class NewGoalComponent implements OnInit {
     this.createNewMilestoneForm();
   }
   ngOnInit(): void {
-    const userData = localStorage.getItem('goalUser');
-    this.user = userData ? JSON.parse(userData) : null;
-    if (this.user) {
-      this.goalForm.get('userId')?.setValue(this.user.userId);
-    }
+    this.user = this.goalService.user;
   }
 
   initializeForm() {
