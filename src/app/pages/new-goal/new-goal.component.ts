@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Form, FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { GoalService } from '../../services/goal.service';
+import { Goal } from '../../model/goal';
+import { LoggedUserData } from '../../model/user';
 
 @Component({
   selector: 'app-new-goal',
@@ -7,15 +10,26 @@ import { Form, FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@a
   templateUrl: './new-goal.component.html',
   styleUrl: './new-goal.component.css'
 })
-export class NewGoalComponent {
+export class NewGoalComponent implements OnInit {
+  private destroyRef = inject(DestroyRef);
 
   goalForm : FormGroup = new FormGroup({});
 
+  user!: LoggedUserData;
+
   milestones! : FormArray;
+  goalService = inject(GoalService);
 
   constructor() {
     this.initializeForm();
     this.createNewMilestoneForm();
+  }
+  ngOnInit(): void {
+    const userData = localStorage.getItem('goalUser');
+    this.user = userData ? JSON.parse(userData) : null;
+    if (this.user) {
+      this.goalForm.get('userId')?.setValue(this.user.userId);
+    }
   }
 
   initializeForm() {
@@ -45,4 +59,18 @@ export class NewGoalComponent {
     })
     this.milestoneList.push(newForm);
   }
+
+  createGoal() {
+    const formValue : Goal = this.goalForm.value;
+    console.log(formValue);
+    const subscription = this.goalService.saveGoal(formValue).subscribe({
+      error: (error: Error) => {
+        console.log(error);
+      }
+    })
+    this.destroyRef.onDestroy(()=> {
+      subscription.unsubscribe();
+    })
+  }
+ 
 }
