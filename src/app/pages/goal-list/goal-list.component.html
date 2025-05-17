@@ -1,41 +1,43 @@
 <div class="container py-5">
-  <div class="d-flex">
+  <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="fw-bold">Goals</h1>
     <button class="btn btn-primary" (click)="navigateToNewGoal()">
       <i class="fas fa-plus me-2" ></i>
       New Goal</button>
   </div>
   <div class="row">
-    <div class="col-md-6 mb-4">
-      <div class="card goal-card">
-        <div class="card-body">
-          <h5 class="card-title">
-            Learn Web development
-          </h5>
-          <div class="progress mb-3">
-            <div class="progress-bar">
-
+    @for (goal of goalsList; track $index) {
+      <div class="col-md-6 mb-4">
+        <div class="card goal-card">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ goal.goalName }}
+            </h5>
+            <div class="progress mb-3">
+              <div class="progress-bar">
+  
+              </div>
             </div>
+            <!-- <h6 class="card-subtitle mb-3">
+              {{ goal.description }}
+            </h6> -->
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between">
+                Start date
+                <span class="badge bg-success">{{ goal.startDate | date:'longDate' }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                End date
+                <span class="badge bg-warning">{{ goal.endDate | date:'longDate'  }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                Description
+                <span class="badge bg-danger">{{ goal.description }}</span>
+              </li>
+            </ul>
           </div>
-          <h6 class="card-subtitle">
-
-          </h6>
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between">
-              html and css
-              <span class="badge bg-success">Complete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              html and css
-              <span class="badge bg-warning">In progress</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              html and css
-              <span class="badge bg-danger">Pending</span>
-            </li>
-          </ul>
         </div>
       </div>
-    </div>
+    }
   </div>
 </div>
