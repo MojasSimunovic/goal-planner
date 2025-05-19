@@ -68,22 +68,30 @@
         <form >
           <div class="mb-3">
             <label for="" class="form-label">Task Title</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" name="new-task-" [(ngModel)]="newTask.taskName" required>
           </div>
           <div class="mb-3">
             <label for="" class="form-label">Task Frequency</label>
-            <select name="" id="" class="form-select bg-dark text-white">
-              <option value="daily">Daily</option>
-              <option value="daily">Weekly</option>
-              <option value="daily">Monthly</option>
+            <select name="" id="" class="form-select bg-dark text-white" name="new-task-frequency" [(ngModel)]="newTask.frequency">
+              <option value="Daily">Daily</option>
+              <option value="Weekly">Weekly</option>
+              <option value="Monthly">Monthly</option>
             </select>
           </div>
           <div class="mb-3">
+            <label for="" class="form-label">Start Date</label>
+            <input type="date" class="form-control bg-dark text-white" name="new-task-star-date" [(ngModel)]="newTask.startDate">
+          </div>
+          <div class="mb-3">
             <label for="" class="form-label">Due Date</label>
-            <input type="date" class="form-control">
+            <input type="date" class="form-control bg-dark text-white" name="new-task-due-date" [(ngModel)]="newTask.dueDate">
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Description</label>
+            <textarea class="form-control bg-dark text-white" name="new-task-description" [(ngModel)]="newTask.description"></textarea>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" data-bs-dismiss="taskModal">Create task</button>
+            <button class="btn btn-primary" (click)="onSaveTask()" data-bs-dismiss="taskModal">Create task</button>
             <button class="btn btn-secondary">Cancel</button>
           </div>
         </form>

@@ -58,7 +58,6 @@ export class NewGoalComponent implements OnInit {
 
   createGoal() {
     const formValue : Goal = this.goalForm.value;
-    console.log(formValue);
     const subscription = this.goalService.saveGoal(formValue).subscribe({
       error: (error: Error) => {
         console.log(error);
