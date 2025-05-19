@@ -7,52 +7,65 @@
   </div>
   <div class="row">
     <div class="col-md-4 mb-4">
-      <div class="card h-100 task-card">
-        <div class="card-header bg-primary text-white">
-          Daily tasks
-        </div>
-        <div class="card-body">
-          <div class="task-item d-flex justify-content-between align-items-center">
-            <div class="form-check">
-              <input type="checkbox" id="task1" class="form-check-input">
-              <label for="task1" class="form-check-label">Morning Exercise</label>
+      @for(task of taskList$ | async; track $index) {
+        @if(task.frequency === 'Daily') {
+          <div class="card h-50 task-card mb-3">
+            <div class="card-header bg-primary text-white">
+              Daily tasks
             </div>
-            <span class="badge bg-info">Daily</span>
+            <div class="card-body">
+              <div class="task-item d-flex justify-content-between align-items-center">
+                <div class="form-check">
+                  <input type="checkbox" [id]="task.taskId" class="form-check-input">
+                  <label [for]='task.taskId' class="form-check-label">{{ task.taskName }}</label>
+                </div>
+                <span class="badge bg-info">{{ task.dueDate | date: 'longDate' }}</span>
+                <p>{{ task.description }}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        }
+      }
     </div>
     <div class="col-md-4 mb-4">
-      <div class="card h-100 task-card">
-        <div class="card-header bg-secondary text-white">
-          Weekly tasks
-        </div>
-        <div class="card-body">
-          <div class="task-item d-flex justify-content-between align-items-center">
-            <div class="form-check">
-              <input type="checkbox" id="task2" class="form-check-input">
-              <label for="task2" class="form-check-label">Morning Exercise</label>
+      @for(task of taskList$ | async; track $index) {
+        @if(task.frequency === 'Weekly') {
+          <div class="card h-50 task-card mb-3">
+            <div class="card-header bg-secondary text-white">
+              Weekly tasks
             </div>
-            <span class="badge bg-info">Weekly</span>
+            <div class="card-body">
+              <div class="task-item d-flex justify-content-between align-items-center">
+                <div class="form-check">
+                  <input type="checkbox" [id]="task.taskId" class="form-check-input">
+                  <label [for]='task.taskId' class="form-check-label">{{ task.taskName }}</label>
+                </div>
+                <span class="badge bg-info">{{ task.dueDate | date: 'longDate' }}</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        }
+      }
     </div>
     <div class="col-md-4 mb-4">
-      <div class="card h-100 task-card">
-        <div class="card-header bg-success text-white">
-          Monthly tasks
-        </div>
-        <div class="card-body">
-          <div class="task-item d-flex justify-content-between align-items-center">
-            <div class="form-check">
-              <input type="checkbox" id="task3" class="form-check-input">
-              <label for="task3" class="form-check-label">Morning Exercise</label>
+      @for(task of taskList$ | async; track $index) {
+        @if(task.frequency === 'Monthly') {
+          <div class="card h-50 task-card mb-3">
+            <div class="card-header bg-success text-white">
+              Monthly tasks
             </div>
-            <span class="badge bg-info">Monthly</span>
+            <div class="card-body">
+              <div class="task-item d-flex justify-content-between align-items-center">
+                <div class="form-check">
+                  <input type="checkbox" [id]="task.taskId" class="form-check-input">
+                  <label [for]='task.taskId' class="form-check-label">{{ task.taskName }}</label>
+                </div>
+                <span class="badge bg-info">{{ task.dueDate | date: 'longDate'}}</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        }
+      }
     </div>
   </div>
 </div>
