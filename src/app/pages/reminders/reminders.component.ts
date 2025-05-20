@@ -26,7 +26,7 @@ export class RemindersComponent implements OnInit {
   remindersList$ : Observable<Reminder[]> = new Observable<Reminder[]>();
 
   newReminder: Reminder = {
-   reminderId: 0,
+    reminderId: 0,
     title: "",
     description: "",
     reminderDateTime: new Date(),
@@ -50,23 +50,13 @@ export class RemindersComponent implements OnInit {
     this.remindersList$ = this.reminderService.getAllRemindersByUser(this.newReminder.userId);
   }
 
-  reminders = [
-    {
-      title: 'Drink water',
-      description: 'Start the day hydrated!',
-      reminderDateTime: '2025-05-20T08:43:17.868Z',
-      isAcknowledged: false,
-    },
-    {
-      title: 'Morning Jog',
-      description: '',
-      reminderDateTime: '2025-05-20T07:00:00.000Z',
-      isAcknowledged: true,
-    }
-  ];
-
-  toggleAcknowledge(reminder: any) {
+  toggleAcknowledge(reminder: Reminder) {
     reminder.isAcknowledged = !reminder.isAcknowledged;
+    this.reminderService.updateReminder(reminder, reminder.reminderId).subscribe({
+      error: (error: Error) => {
+        console.log(error);
+      }
+    })
   }
 
   onSaveReminder() {

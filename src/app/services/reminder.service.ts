@@ -19,4 +19,8 @@ export class ReminderService {
   creteNewReminder(newReminder: Reminder) {
     return this.http.post('https://api.freeprojectapi.com/api/GoalTracker/createReminder', newReminder);
   }
+
+  updateReminder(reminder: Reminder, reminderId: number) {
+    return this.http.put(`https://api.freeprojectapi.com/api/GoalTracker/updateReminder?id=${reminderId}`, reminder);
+  }
 }
