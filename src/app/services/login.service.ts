@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { UserRegister, UserLogin } from '../model/user';
+import { UserRegister, UserLogin, LoggedUserData } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +23,16 @@ export class LoginService {
     )
   }
 
+  
+  get user(): LoggedUserData {
+    return JSON.parse(localStorage.getItem('goalUser') || 'null');
+  }
+
   login(url: string, loginObject: UserLogin) {
     return this.http.post(`${url}`, loginObject).
     pipe(
       catchError((error)=> {
+        alert(error.error);
         console.log(error.error)
         return throwError(()=> new Error('failed to register'))
       })

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { UserLogin, UserRegister } from './model/user';
 
@@ -21,6 +21,7 @@ export class AppComponent  implements OnInit {
   loginObject : UserLogin = {emailId: "", password: ""};
   loginService = inject(LoginService);
   error = signal('');
+  router = inject(Router);
 
   loggedUserData: any;
 
@@ -70,16 +71,17 @@ export class AppComponent  implements OnInit {
       complete: ()=> {
         this.closeModal();  
         this.isLoggedIn.set(true);
-        alert('Login completed');
       }
     })
     this.destroyRef.onDestroy(()=> {
       subscription.unsubscribe();
     })
+    this.router.navigate(['/dashboard']);
   }
 
   logout() {
     localStorage.removeItem('goalUser');
+    this.router.navigate(['']);
     this.isLoggedIn.set(false);
   }
 }

@@ -15,7 +15,7 @@ export class GoalService {
   constructor() {
     const userData = localStorage.getItem('goalUser');
     this.user = userData ? JSON.parse(userData) : null;
-   }
+  }
 
   saveGoal(obj: Goal) {
     return this.http.post( 'https://api.freeprojectapi.com/api/GoalTracker/createGoalWithMilestones',obj);
