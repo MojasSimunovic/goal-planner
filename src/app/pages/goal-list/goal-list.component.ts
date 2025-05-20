@@ -3,7 +3,7 @@ import { Router} from '@angular/router';
 import { GoalService } from '../../services/goal.service';
 import { LoggedUserData } from '../../model/user';
 import { Goal, GoalWithoutMilestone } from '../../model/goal';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-goal-list',
