@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row pt-4">
-    <div class="col-6 mx-auto">
+    <div class="col-12 mx-auto">
       <div class="card">
         <div class="card-body">
           <form [formGroup]="goalForm">
             <div class="row">
-              <div class="col-12">
+              <div class="col-6">
                 <div class="mb-3">
                   <label for="" class="form-label">Goal title</label>
                   <input type="text" formControlName="goalName" class="form-control" required>
@@ -23,7 +23,7 @@
                   <textarea class="form-control" formControlName="description"></textarea>
                 </div>
               </div>
-              <!-- <div class="col-5" formArrayName="milestones">
+              <div class="col-5" formArrayName="milestones">
                 @for (item of milestoneList.controls;track $index) {
                   <ng-container [formGroupName]="$index">
                     <div class="row">
@@ -54,7 +54,7 @@
                     </div>
                   </ng-container>
                 }
-              </div> -->
+              </div>
             </div>
             <div class="row pt-3">
               <div class="col-12 text-center">
