@@ -1,1 +1,63 @@
-<p>dashboard works!</p>
+<div class="container-fluid py-4 dashboard-wrapper bg-dark">
+  <div class="container">
+
+
+  <h2 class="fw-bold mb-4 text-white">Dashboard</h2>
+
+  <!-- Summary Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3" *ngFor="let card of summaryCards">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <div [innerHTML]="card.icon" class="mb-2" style="font-size: 1.8rem;"></div>
+          <h5 class="card-title fw-semibold">{{ card.title }}</h5>
+          <h3 class="mb-0">{{ card.value }}</h3>
+          <small class="text-muted">{{ card.subtext }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trend & Progress -->
+  <div class="row g-3">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title fw-bold mb-3">Task Completion Trend</h5>
+          <!-- Placeholder table -->
+          <div class="table-responsive">
+            <table class="table table-bordered text-center align-middle">
+              <thead>
+                <tr>
+                  <th>Task Name</th>
+                  <th *ngFor="let day of days">{{ day }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let task of tasks">
+                  <td class="text-start">
+                    <i [class]="task.icon" class="me-2"></i>{{ task.name }}
+                  </td>
+                  <td *ngFor="let completed of task.completions">
+                    <span *ngIf="completed" class="text-success fw-bold">✔</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title fw-bold mb-3">Goal Progress</h5>
+          <!-- Placeholder -->
+          <p class="text-muted">Progress chart coming soon...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+</div>
