@@ -16,7 +16,6 @@ declare var bootstrap: any;
   styleUrl: './app.component.css'
 })
 export class AppComponent  implements OnInit {
-
   email = '';
   password = '';
   error: string | null = null;
@@ -29,7 +28,6 @@ export class AppComponent  implements OnInit {
     emailId: '',
     password: ''
   };
-
   isLoggedIn = signal(false);
   ngOnInit(): void {
     const modalEl = document.getElementById('loginModal');
@@ -37,7 +35,6 @@ export class AppComponent  implements OnInit {
       const modal = new bootstrap.Modal(modalEl);
     }
   }
-
   async onLogin() {
     try {
       await this.loginService.login(this.email, this.password);
@@ -49,7 +46,6 @@ export class AppComponent  implements OnInit {
       this.error = err.message;
     }
   }
-
   async onRegister() {
     this.error = null;
     try {
@@ -62,7 +58,6 @@ export class AppComponent  implements OnInit {
       this.error = err.message;
     }
   }
-
   async onLogout() {
     this.error = null;
     try {
@@ -71,7 +66,6 @@ export class AppComponent  implements OnInit {
       this.error = err.message;
     }
   }
-
   closeModal() {
     const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
     modal?.hide();

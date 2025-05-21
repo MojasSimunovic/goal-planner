@@ -1,8 +1,8 @@
 export interface Reminder {
-  reminderId: number,
+  id?: string;
   title: string,
   description: string,
   reminderDateTime: Date,
   isAcknowledged: Boolean,
-  userId: number
+  userId?: string
 }

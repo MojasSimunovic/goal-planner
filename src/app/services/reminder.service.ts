@@ -14,25 +14,44 @@ import {
   where,
   query,
 } from '@angular/fire/firestore';
+import { LoginService } from './login.service';
+import { getAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReminderService {
 
-  http = inject(HttpClient);
+  private userId: string;
+  firestore = inject(Firestore);
 
-  constructor() { }
+  loginAuthUser = inject(LoginService);
 
-  getAllRemindersByUser(userId: number): Observable<Reminder[]> {
-    return this.http.get<Reminder[]>(`https://api.freeprojectapi.com/api/GoalTracker/getReminders?userId=${userId}`);
+  
+  constructor() {
+    const auth = getAuth();
+    this.userId = auth.currentUser?.uid || '';
+  }
+  deleteReminder(reminderId: string) {
+    const reminderDocRef = doc(this.firestore, `reminders/${reminderId}`);
+    return deleteDoc(reminderDocRef);
   }
 
-  creteNewReminder(newReminder: Reminder) {
-    return this.http.post('https://api.freeprojectapi.com/api/GoalTracker/createReminder', newReminder);
+  getAllRemindersByUser(): Observable<Reminder[]> {
+  if (!this.userId) throw new Error('No user logged in');
+    const remindersRef = collection(this.firestore, 'reminders');
+    const q = query(remindersRef, where('userId', '==', this.userId));
+    return collectionData(q, { idField: 'id' }) as Observable<Reminder[]>;
   }
 
-  updateReminder(reminder: Reminder, reminderId: number) {
-    return this.http.put(`https://api.freeprojectapi.com/api/GoalTracker/updateReminder?id=${reminderId}`, reminder);
+  createNewReminder(reminder: Reminder) {
+    reminder = {...reminder, userId: this.userId};
+    const reminderRef = collection(this.firestore, 'reminders');
+    return addDoc(reminderRef, {
+      ...reminder,
+      reminderDateTime: reminder.reminderDateTime instanceof Date
+        ? reminder.reminderDateTime.toISOString()
+        : reminder.reminderDateTime
+    });
   }
 }
