@@ -5,7 +5,7 @@ import { GoalListComponent } from './pages/goal-list/goal-list.component';
 import { TaskListComponent } from './pages/task-list/task-list.component';
 import { RemindersComponent } from './pages/reminders/reminders.component';
 import { NewGoalComponent } from './pages/new-goal/new-goal.component';
-import { authGuard } from './guard/auth.guard';
+import { authGuard, authGuardLoggedIn } from './guard/auth.guard';
 
 export const routes: Routes = [
   {
@@ -15,6 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
+    canActivate: [authGuardLoggedIn],
     component: HomepageComponent
   },
   {

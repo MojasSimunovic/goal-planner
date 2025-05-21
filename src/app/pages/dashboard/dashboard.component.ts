@@ -1,5 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dashboard',
@@ -54,4 +55,9 @@ tasks = [
     completions: [true, true, true, false, false, false, false]
   }
 ];
+
+
+  constructor(private firestore: Firestore) {
+    console.log('Firestore is ready:', firestore);
+  }
 }

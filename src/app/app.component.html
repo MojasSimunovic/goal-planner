@@ -10,7 +10,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        @if (isLoggedIn()) {
+        @if (userSignal()) {
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="dashboard">Dashboard</a>
         </li>
@@ -27,9 +27,9 @@
       </ul>
 
       <div class="d-flex align-items-center">
-        @if (isLoggedIn()) {
-          <p class=" mb-0 me-2"><i class="fas fa-user me-2"></i>{{ loggedUserData.fullName }}</p>
-          <button class="btn btn-outline-light btn-danger" (click)="logout()">
+        @if (userSignal()) {
+          <p class=" mb-0 me-2"><i class="fas fa-user me-2"></i>{{ userSignal()?.email }}</p>
+          <button class="btn btn-outline-light btn-danger" (click)="onLogout()">
              Logout
           </button>
         } @else {
@@ -65,40 +65,58 @@
 
           <!-- Login Tab -->
           <div class="tab-pane fade show active" id="loginTabPane" role="tabpanel" aria-labelledby="login-tab">
-            <form>
-              <div class="mb-3">
-                <label for="loginEmail" class="form-label" >Email address</label>
-                <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" name="loginEmail" [(ngModel)]="loginObject.emailId">
-              </div>
-              <div class="mb-3">
-                <label for="loginPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" name="login-password" [(ngModel)]="loginObject.password">
-              </div>
-              <button type="submit" class="btn btn-primary w-100" (click)="onLogin()">Login</button>
-            </form>
+            <div class="login-form">
+              <h2>Login</h2>
+              <form (submit)="onLogin()">
+                <div class="mb-3">
+                  <label for="" class="form-label">Login email</label>
+                  <input class="form-control bg-dark text-white" type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Login password</label>
+                  <input class="form-control bg-dark text-white" type="password" [(ngModel)]="password" name="password" placeholder="Password" required />
+                </div>
+                <div class="mb-3">
+                  <button type="submit" class="btn btn-success m-auto">Login</button>
+                </div>
+              </form>
+              <p *ngIf="error" class="text-danger">{{ error }}</p>
+            </div>
           </div>
 
           <!-- Sign Up Tab -->
           <div class="tab-pane fade" id="signupTabPane" role="tabpanel" aria-labelledby="signup-tab">
-            <form name>
-              <div class="mb-3">
-                <label for="signupName" class="form-label" >Full Name</label>
-                <input type="text" class="form-control" id="signupName" placeholder="Your full name" name="fullName" [(ngModel)]="registerObject.fullName">
-              </div>
-              <div class="mb-3">
-                <label for="signupEmail" class="form-label" >Email address</label>
-                <input type="email" class="form-control" id="signupEmail" name="emailId" placeholder="name@example.com" [(ngModel)]="registerObject.emailId">
-              </div>
-              <div class="mb-3">
-                <label for="signupPassword" class="form-label" >Password</label>
-                <input type="password" class="form-control" id="signupPassword" name="password" placeholder="Create a password" [(ngModel)]="registerObject.password">
-              </div>
-              <div class="mb-3">
-                <label for="mobileNumber" class="form-label">Mobile number</label>
-                <input type="text" class="form-control" id="mobileNumber" name="mobileNo" placeholder="Mobile Number" [(ngModel)]="registerObject.mobileNo">
-              </div>
-              <button type="submit" class="btn btn-success w-100" (click)="onRegister()">Sign Up</button>
-            </form>
+              <div class="register-form">
+              <h2>Sign Up</h2>
+              <form (submit)="onRegister()">
+                <div class="mb-3">
+                  <label for="" class="form-label">Register email address</label>
+                  <input
+                    type="email"
+                    [(ngModel)]="registerObject.emailId"
+                    name="registerEmail"
+                    placeholder="Email"
+                    required
+                    class="form-control bg-dark text-white"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    [(ngModel)]="registerObject.password"
+                    name="registerPassword"
+                    placeholder="Password"
+                    required
+                    class="form-control bg-dark text-white"
+                  />
+                </div>
+                <div class="mb-3">
+                  <button class="btn btn-primary" type="submit">Register</button>
+                </div>
+              </form>
+              <p *ngIf="error" class="text-danger">{{ error }}</p>
+            </div>
           </div>
 
         </div>
@@ -106,5 +124,13 @@
     </div>
   </div>
 </div>
-
-<router-outlet />
+<div class="container-main pt-4">
+  <router-outlet />
+</div>
+<footer class="bg-dark">
+  <div class="text-md-start justify-content-between py-4 px-4 px-xl-5">
+    <div class="text-white text-center mb-md-0 container">
+      Copyright ©Mojas Simunovic 2025. All rights reserved.
+    </div>
+  </div>
+</footer>
