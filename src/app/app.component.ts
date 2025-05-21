@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { UserLogin, UserRegister } from './model/user';
 import { NgIf } from '@angular/common';
@@ -11,7 +11,7 @@ declare var bootstrap: any;
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, RouterLink, NgIf],
+  imports: [RouterOutlet, FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,3 +1,7 @@
 .container-main {
   min-height: 95svh;
 }
+
+.link-active {
+  font-weight: 500;
+}

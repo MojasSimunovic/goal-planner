@@ -12,16 +12,16 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         @if (userSignal()) {
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="dashboard">Dashboard</a>
+          <a class="nav-link active" aria-current="page" routerLink="dashboard" routerLinkActive="link-active">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="" routerLink="tasks">Tasks</a>
+          <a class="nav-link" aria-current="" routerLink="tasks" routerLinkActive="link-active">Tasks</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="" routerLink="goals">Goals</a>
+          <a class="nav-link" aria-current="" routerLink="goals" routerLinkActive="link-active">Goals</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="" routerLink="reminders">Reminders</a>
+          <a class="nav-link" aria-current="" routerLink="reminders" routerLinkActive="link-active">Reminders</a>
         </li>
         }
       </ul>
@@ -80,7 +80,9 @@
                   <button type="submit" class="btn btn-success m-auto">Login</button>
                 </div>
               </form>
-              <p *ngIf="error" class="text-danger">{{ error }}</p>
+              @if(error) {
+                <p class="text-danger">{{ error }}</p>
+              }
             </div>
           </div>
 
@@ -115,7 +117,9 @@
                   <button class="btn btn-primary" type="submit">Register</button>
                 </div>
               </form>
-              <p *ngIf="error" class="text-danger">{{ error }}</p>
+              @if(error) {
+                <p class="text-danger">{{ error }}</p>
+              }
             </div>
           </div>
 
