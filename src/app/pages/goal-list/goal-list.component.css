@@ -22,3 +22,17 @@
     font-size: 0.85rem;
   }
 }
+
+.row {
+  row-gap: 1.5em;
+}
+
+.form-check-label {
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity)) !important;
+  border-color:rgba(var(--bs-success-rgb), var(--bs-bg-opacity)) !important;
+  cursor: pointer;
+}

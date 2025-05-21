@@ -1,71 +1,58 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { Form, FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoalService } from '../../services/goal.service';
 import { Goal } from '../../model/goal';
 import { LoggedUserData } from '../../model/user';
+import { Router } from '@angular/router';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-new-goal',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule, NgFor],
   templateUrl: './new-goal.component.html',
   styleUrl: './new-goal.component.css'
 })
 export class NewGoalComponent implements OnInit {
-  private destroyRef = inject(DestroyRef);
 
-  goalForm : FormGroup = new FormGroup({});
-
-  user!: LoggedUserData;
-
-  milestones! : FormArray;
+  goal: Goal = {
+      goalName: '',
+      description: '',
+      startDate: '',
+      endDate: '',
+      isAchieved: false,
+      milestones: [
+        {
+          milestoneName: '',
+          description: '',
+          targetDate: '',
+          isCompleted: false
+        }
+      ]
+  }
   goalService = inject(GoalService);
-
-  constructor() {
-    this.initializeForm();
-    this.createNewMilestoneForm();
-  }
+  router = inject (Router);
+  constructor() {}
   ngOnInit(): void {
-    this.user = this.goalService.user;
+   
   }
 
-  initializeForm() {
-    this.goalForm = new FormGroup({
-      goalId: new FormControl(0),
-      goalName: new FormControl(''),
-      description: new FormControl(''),
-      startDate: new FormControl(''),
-      endDate: new FormControl(''),
-      isAchieved: new FormControl(false),
-      userId: new FormControl(0),
-      milestones: new FormArray([])
-    })
+  addMilestone() {
+    this.goal.milestones?.push({
+      milestoneName: '',
+      description: '',
+      targetDate: '',
+      isCompleted: false
+    });
   }
-
-  get milestoneList(): FormArray {
-    return this.goalForm.get('milestones') as FormArray;
-  }
-
-  createNewMilestoneForm() {
-    const newForm = new FormGroup({
-      milestoneId: new FormControl(0),
-      milestoneName: new FormControl(''),
-      description: new FormControl(''),
-      targetDate: new FormControl(''),
-      isCompleted: new FormControl(false)
-    })
-    this.milestoneList.push(newForm);
-  }
-
   createGoal() {
-    const formValue : Goal = this.goalForm.value;
-    const subscription = this.goalService.saveGoal(formValue).subscribe({
-      error: (error: Error) => {
-        console.log(error);
+    this.goalService.createNewGoal(this.goal).subscribe({
+      next: () => {
+        this.router.navigate(['goals']);
+      },
+      error: (err) => {
+        console.error('Error creating goal:', err);
       }
-    })
-    this.destroyRef.onDestroy(()=> {
-      subscription.unsubscribe();
-    })
+    });
   }
- 
 }

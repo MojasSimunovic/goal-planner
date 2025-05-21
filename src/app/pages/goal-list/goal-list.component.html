@@ -6,9 +6,9 @@
       New Goal</button>
   </div>
 <div class="row">
-  @for (goal of goalsList; track $index) {
+  @for (goal of goalList(); track $index) {
     <div class="col-12 col-md-6 col-lg-4 d-flex">
-      <div class="card goal-card shadow-sm text-light bg-dark border-0 h-100 w-100">
+      <div class="card goal-card shadow-sm text-light bg-dark border-0 h-100 w-100" [ngStyle]="achievedStyle(goal)">
         <div class="card-body d-flex flex-column justify-content-between">
 
           <!-- Goal Title -->
@@ -18,30 +18,32 @@
           </h5>
 
           <!-- Progress -->
-          <div class="mb-3">
-            <label class="form-label text-secondary small">Progress</label>
-            <div class="progress bg-secondary-subtle" style="height: 8px;">
-              <!-- <div
-                class="progress-bar"
-                role="progressbar"
-                [ngClass]="{
-                  'bg-success': goal.progress >= 75,
-                  'bg-warning': goal.progress >= 40 && goal.progress < 75,
-                  'bg-danger': goal.progress < 40
-                }"
-                [style.width.%]="goal.progress"
-              >
-              </div> -->
+          @if(goal.milestones) {
+            <div class="mb-3">
+              <label class="form-label text-secondary small">Progress</label>
+              <div class="progress bg-secondary-subtle" style="height: 8px;">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  [ngClass]="{
+                    'bg-success': calculateProgress(goal) >= 75,
+                    'bg-warning': calculateProgress(goal) >= 40 && calculateProgress(goal) < 75,
+                    'bg-danger': calculateProgress(goal) < 40
+                  }"
+                  [style.width.%]="calculateProgress(goal)"
+                >
+                </div>
+              </div>
+              <div class="small text-end mt-1 text-muted text-light-emphasis">{{ calculateProgress(goal) }}%</div>
             </div>
-            <!-- <div class="small text-end mt-1 text-muted">{{ goal.progress }}%</div> -->
-          </div>
+          }
 
           <!-- Description Section -->
           <div class="mb-3">
             <h6 class="text-info fw-semibold mb-2">
               <i class="fas fa-align-left me-2"></i> Description
             </h6>
-            <p class="text-light-emphasis small mb-0">{{ goal.description }}</p>
+            <p class="text-light small mb-0">{{ goal.description }}</p>
           </div>
 
           <!-- Dates List -->
@@ -50,6 +52,27 @@
               <i class="fas fa-play me-2 text-success"></i> Start date
               <span class="badge bg-success">{{ goal.startDate | date: 'longDate' }}</span>
             </li>
+            @if(goal.milestones && goal.milestones.length > 0) {
+              @for(milestone of goal.milestones;track $index) {
+                    <li 
+                      class="list-group-item bg-transparent text-light border-top border-secondary d-flex justify-content-between align-items-center"
+                    >
+                      <div class="form-check">
+                        <input 
+                          type="checkbox" 
+                          class="form-check-input" 
+                          [id]="(goal?.id ?? 'goal') + $index"
+                          [(ngModel)]="milestone.isCompleted"
+                          (change)="onMilestoneToggled(goal, $index)" />
+                        <label class="form-check-label" [for]="(goal?.id ?? 'goal') + $index">
+                          <h6>{{ milestone.milestoneName }}</h6>
+                          <span>{{ milestone.description }}</span>
+                        </label>
+                        
+                      </div>
+                    </li>
+              }
+            }
             <li class="list-group-item bg-transparent text-light border-top border-secondary d-flex justify-content-between align-items-center">
               <i class="fas fa-flag-checkered me-2 text-warning"></i> End date
               <span class="badge bg-warning text-dark">{{ goal.endDate | date: 'longDate' }}</span>

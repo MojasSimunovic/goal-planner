@@ -3,59 +3,66 @@
     <div class="col-12 mx-auto">
       <div class="card">
         <div class="card-body">
-          <form [formGroup]="goalForm">
+          <form #goalFormRef="ngForm">
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="" class="form-label">Goal title</label>
-                  <input type="text" formControlName="goalName" class="form-control" required>
+                  <label class="form-label">Goal title</label>
+                  <input type="text" [(ngModel)]="goal.goalName" name="goalName" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                  <label for="" class="form-label">Start Date</label>
-                  <input type="date" formControlName="startDate" class="form-control">
+                  <label class="form-label">Start Date</label>
+                  <input type="date" [(ngModel)]="goal.startDate" name="startDate" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                  <label for="" class="form-label">Target Date</label>
-                  <input type="date" class="form-control" formControlName="endDate">
+                  <label class="form-label">Target Date</label>
+                  <input type="date" [(ngModel)]="goal.endDate" name="endDate" class="form-control" required=""> 
                 </div>
                 <div class="mb-3">
-                  <label for="" class="form-label">Description</label>
-                  <textarea class="form-control" formControlName="description"></textarea>
+                  <label class="form-label">Description</label>
+                  <textarea class="form-control" [(ngModel)]="goal.description" name="description"></textarea>
                 </div>
               </div>
-              <div class="col-5" formArrayName="milestones">
-                @for (item of milestoneList.controls;track $index) {
-                  <ng-container [formGroupName]="$index">
-                    <div class="row">
-                      <div class="col-6">
-                        <div class="mb-1">
-                          <label for="" class="form-label">Milestone Title</label>
-                          <input type="text" class="form-control" formControlName="milestoneName">
-                        </div>
-                      </div>
-                      <div class="col-6">
-                        <div class="mb-1">
-                          <label for="" class="form-label">Milestone Target Date</label>
-                          <input type="date" class="form-control" formControlName="targetDate">
-                        </div>
-                      </div>
-                      <div class="col-8">
-                        <div class="mb-3">
-                          <label for="" class="form-label">Description</label>
-                          <textarea class="form-control" formControlName="description"></textarea>
-                        </div>
-                      </div>
-                      @if ($last) {
-                        <div class="col-4 text-end my-auto ">
-                          <button type="button" class="btn btn-outline-secondary" (click)="createNewMilestoneForm()">+</button>
-                        </div>
-                      }
-                     
+
+              <div class="col-5">
+                <div *ngFor="let milestone of goal.milestones; let i = index" class="row">
+                  <div class="col-6">
+                    <div class="mb-1">
+                      <label class="form-label">Milestone Title</label>
+                      <input type="text" [(ngModel)]="milestone.milestoneName" [name]="'milestoneName' + i" class="form-control">
                     </div>
-                  </ng-container>
-                }
+                  </div>
+                  <div class="col-6">
+                    <div class="mb-1">
+                      <label class="form-label">Milestone Target Date</label>
+                      @if(i > 0) {
+                      <input
+                        type="date"
+                        [min]="goal.milestones[i - 1].targetDate || goal.startDate"
+                        [max]="goal.endDate"
+                        [(ngModel)]="milestone.targetDate"
+                        [name]="'targetDate' + i"
+                        class="form-control">
+                      } @else {
+                        
+                        <input type="date" [min]="goal.startDate" [max]="goal.endDate" [(ngModel)]="milestone.  targetDate" [name]="'targetDate' + i" class="form-control">
+                      }
+                      
+                    </div>
+                  </div>
+                  <div class="col-8">
+                    <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <textarea class="form-control" [(ngModel)]="milestone.description" [name]="'description' + i" required></textarea>
+                    </div>
+                  </div>
+                  <div class="col-4 text-end my-auto">
+                    <button type="button" class="btn btn-outline-secondary" (click)="addMilestone()">+</button>
+                  </div>
+                </div>
               </div>
             </div>
+
             <div class="row pt-3">
               <div class="col-12 text-center">
                 <button type="button" class="btn btn-success" (click)="createGoal()">Create goal</button>

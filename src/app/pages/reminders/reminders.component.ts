@@ -9,7 +9,7 @@ declare var bootstrap: any;
 
 @Component({
   selector: 'app-reminders',
-  imports: [NgClass, NgIf, DatePipe, FormsModule],
+  imports: [NgClass, DatePipe, FormsModule],
   templateUrl: './reminders.component.html',
   styleUrl: './reminders.component.css'
 })

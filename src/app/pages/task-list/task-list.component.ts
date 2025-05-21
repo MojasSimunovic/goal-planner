@@ -34,7 +34,7 @@ export class TaskListComponent implements OnInit {
 
   @ViewChild('taskModalRef') modalRef!: ElementRef;
   ngOnInit(): void {
-    this.newTask.userId = this.goalService.user.userId;
+    // this.newTask.userId = this.goalService.user.userId;
     if (this.modalRef) {
       const modal = new bootstrap.Modal(this.modalRef);
     }

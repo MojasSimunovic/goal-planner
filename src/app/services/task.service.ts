@@ -25,7 +25,7 @@ export class TaskService {
   }
 
   getTasksByUser():Observable<Task[]> {
-    return this.http.get<Task[]>(`https://api.freeprojectapi.com/api/GoalTracker/getAllTasks?userId=${this.goalService.user.userId}`).
+    return this.http.get<Task[]>(`https://api.freeprojectapi.com/api/GoalTracker/getAllTasks?userId=138`).
     pipe(
       catchError((error)=> {
         console.log(error.error)

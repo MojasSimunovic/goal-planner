@@ -22,10 +22,11 @@
                   {{ reminder.isAcknowledged ? 'Acknowledged' : 'Pending' }}
                 </span>
               </div>
-
-              <p class="card-text text-muted mb-2" *ngIf="reminder.description">
-                {{ reminder.description }}
-              </p>
+              @if(reminder.description) {
+                <p class="card-text text-muted mb-2">
+                  {{ reminder.description }}
+                </p>
+              }
 
               <div class="small text-secondary">
                 <i class="fas fa-clock me-1"></i>
