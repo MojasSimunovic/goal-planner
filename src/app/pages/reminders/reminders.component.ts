@@ -3,13 +3,14 @@ import { Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } 
 import { FormsModule } from '@angular/forms';
 import { Reminder } from '../../model/reminder';
 import { ReminderService } from '../../services/reminder.service';
+import { ReminderModalComponent } from "../../shared/reminder-modal/reminder-modal.component";
 
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-reminders',
-  imports: [NgClass, DatePipe, FormsModule],
+  imports: [NgClass, DatePipe, FormsModule, ReminderModalComponent],
   templateUrl: './reminders.component.html',
   styleUrl: './reminders.component.css'
 })
@@ -20,12 +21,12 @@ export class RemindersComponent implements OnInit {
 
   reminders = signal<Reminder[]>([]);
 
-  newReminder: Reminder = {
-    title: "",
-    description: "",
-    reminderDateTime: new Date(),
-    isAcknowledged: false,
-  }
+  // newReminder: Reminder = {
+  //   title: "",
+  //   description: "",
+  //   reminderDateTime: new Date(),
+  //   isAcknowledged: false,
+  // }
 
   ngOnInit(): void {
     this.reminderService.getAllRemindersByUser().subscribe((data)=> {
@@ -36,16 +37,16 @@ export class RemindersComponent implements OnInit {
     const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
     modal?.hide();
   }
-  onSaveReminder() {
-    this.reminderService.createNewReminder(this.newReminder);
-    this.newReminder = {
-      title: "",
-      description: "",
-      reminderDateTime: new Date(),
-      isAcknowledged: false,
-    }
-    this.closeModal();
-  }
+  // onSaveReminder() {
+  //   this.reminderService.createNewReminder(this.newReminder);
+  //   this.newReminder = {
+  //     title: "",
+  //     description: "",
+  //     reminderDateTime: new Date(),
+  //     isAcknowledged: false,
+  //   }
+  //   this.closeModal();
+  // }
 
   toggleAcknowledge(reminder: Reminder) {
     if (reminder.id) {

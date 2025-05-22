@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import {
   trigger, transition, style, animate, query, stagger
 } from '@angular/animations';
+import { ReminderModalComponent } from "../../shared/reminder-modal/reminder-modal.component";
 
 @Component({
   selector: 'app-goal-list',
@@ -28,22 +29,21 @@ export class GoalListComponent implements OnInit {
     this.router.navigateByUrl('new-goal');
   }
 
-  onMilestoneToggled(goal: Goal, index: number) {
+  onMilestoneToggled(goal: Goal) {
     if(goal.milestones.length === goal.milestones.filter(m => m.isCompleted).length) {
       goal = { ...goal, isAchieved: true };
-      this.goalService.updateGoal(goal, index).subscribe({
+      this.goalService.updateGoal(goal).subscribe({
         next: () => console.log(goal),
         error: (err: any) => console.error('Failed to update milestone:', err)
       });
     } else {
       goal = { ...goal, isAchieved: false };
-      this.goalService.updateGoal(goal, index).subscribe({
+      this.goalService.updateGoal(goal).subscribe({
         next: () => console.log(goal),
         error: (err: any) => console.error('Failed to update milestone:', err)
       });
     }
   }
-
   calculateProgress(goal: Goal): number {
     const total = goal.milestones?.length || 0;
     const completed = goal.milestones?.filter(m => m.isCompleted).length || 0;
@@ -51,6 +51,17 @@ export class GoalListComponent implements OnInit {
   }
   
   achievedStyle(goal: Goal) {
-    return goal.isAchieved ? { opacity: 0.8, 'pointer-events': 'all' } : {};
+    return goal.isAchieved ? { opacity: 0.8 } : {};
+  }
+
+  onEditGoal(goal: Goal) {
+    this.router.navigate(['/new-goal'], { queryParams: { id: goal.id } });
+  }
+  onDeleteGoal(goal: Goal) {
+    if (goal.id) {
+      this.goalService.deleteGoal(goal.id);
+    } else {
+      console.error('Goal id is undefined, cannot delete goal.');
+    }
   }
 }

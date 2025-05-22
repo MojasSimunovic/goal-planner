@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Goal } from '../model/goal';
 import { LoggedUserData } from '../model/user';
-import { addDoc, collection, collectionData, doc, Firestore, query, setDoc, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, Firestore, getDoc, query, setDoc, where } from '@angular/fire/firestore';
 import { getAuth } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 
@@ -41,8 +41,23 @@ export class GoalService {
     return collectionData(q, { idField: 'id' }) as Observable<Goal[]>;
   }
 
-  updateGoal(goal: Goal, index: number): Observable<void> {
-  const goalDocRef = doc(this.firestore, `goals/${goal.id}`);
-  return from(setDoc(goalDocRef, goal));
-}
+  updateGoal(goal: Goal): Observable<void> {
+    const goalDocRef = doc(this.firestore, `goals/${goal.id}`);
+    return from(setDoc(goalDocRef, goal));
+  }
+
+  getGoalById(goalId: string): Promise<Goal | null> {
+    const goalDocRef = doc(this.firestore, `goals/${goalId}`);
+    return getDoc(goalDocRef).then(snapshot => {
+      if (snapshot.exists()) {
+        return { id: snapshot.id, ...snapshot.data() } as Goal;
+      } else {
+        return null;
+      }
+    });
+  }
+
+  deleteGoal(goalId: string) {
+    const goalDocRef = doc(this.firestore, `goals/${goalId}`);
+  }
 }

@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } f
 import { GoalService } from '../../services/goal.service';
 import { Goal } from '../../model/goal';
 import { LoggedUserData } from '../../model/user';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -30,11 +30,26 @@ export class NewGoalComponent implements OnInit {
         }
       ]
   }
+  route = inject(ActivatedRoute);
   goalService = inject(GoalService);
   router = inject (Router);
+
+  editing: boolean = false;
   constructor() {}
   ngOnInit(): void {
-   
+     this.route.queryParams.subscribe(params => {
+      const goalId = params['id'];
+      if (goalId) {
+        this.editing = !this.editing;
+        this.goalService.getGoalById(goalId).then(goal => {
+          if (goal) {
+          this.goal = goal;
+          } else {
+          return;
+          }
+        });
+      }
+    });
   }
 
   addMilestone() {
@@ -46,7 +61,8 @@ export class NewGoalComponent implements OnInit {
     });
   }
   createGoal() {
-    this.goalService.createNewGoal(this.goal).subscribe({
+    if(this.editing) {
+      this.goalService.updateGoal(this.goal).subscribe({
       next: () => {
         this.router.navigate(['goals']);
       },
@@ -54,5 +70,15 @@ export class NewGoalComponent implements OnInit {
         console.error('Error creating goal:', err);
       }
     });
+    } else {
+      this.goalService.createNewGoal(this.goal).subscribe({
+        next: () => {
+          this.router.navigate(['goals']);
+        },
+        error: (err) => {
+          console.error('Error creating goal:', err);
+        }
+      });
+    }
   }
 }
