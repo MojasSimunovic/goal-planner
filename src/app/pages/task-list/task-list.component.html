@@ -71,12 +71,16 @@
       
       @if(dailyTasks().length === 0) {
         <div class="text-center text-muted py-4">
-          <i class="fas fa-plus-circle fa-2x mb-2"></i>
+          <button type="button" class="btn btn-sm"  data-bs-toggle="modal" data-bs-target="#taskModal">
+            <i class="fas fa-plus-circle fa-2x mb-2"></i>
+          </button>
+          
           <p>No daily tasks yet.<br>Drag tasks here or create new ones!</p>
         </div>
       }
     </div>
   </div>
+  
 
   <!-- Weekly Tasks Column -->
   <div class="task-column" 
@@ -142,7 +146,9 @@
       
       @if(weeklyTasks().length === 0) {
         <div class="text-center text-muted py-4">
-          <i class="fas fa-plus-circle fa-2x mb-2"></i>
+          <button type="button"  class="btn btn-sm"  data-bs-toggle="modal" data-bs-target="#taskModal">
+            <i class="fas fa-plus-circle fa-2x mb-2"></i>
+          </button>
           <p>No weekly tasks yet.<br>Drag tasks here or create new ones!</p>
         </div>
       }
@@ -213,7 +219,9 @@
       
       @if(monthlyTasks().length === 0) {
         <div class="text-center text-muted py-4">
-          <i class="fas fa-plus-circle fa-2x mb-2"></i>
+          <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#taskModal">
+            <i class="fas fa-plus-circle fa-2x mb-2"></i>
+          </button>
           <p>No monthly tasks yet.<br>Drag tasks here or create new ones!</p>
         </div>
       }
@@ -221,45 +229,6 @@
   </div>
 </div>
 
-<!-- Task Modal (unchanged) -->
-<div class="modal fade" id="taskModal" aria-labelledby="authModalLabel" aria-hidden="true" tabindex="-1" #taskModalRef>
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header border-0 pb-0">
-        <h5 class="modal-title">Create New Task</h5>
-        <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="" class="form-label">Task Title</label>
-            <input type="text" class="form-control" name="new-task-" [(ngModel)]="newTask.taskName" required>
-          </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Task Frequency</label>
-            <select name="" id="" class="form-select bg-dark text-white" name="new-task-frequency" [(ngModel)]="newTask.frequency">
-              <option value="Daily">Daily</option>
-              <option value="Weekly">Weekly</option>
-              <option value="Monthly">Monthly</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Due Date</label>
-            <input type="date" class="form-control bg-dark text-white" name="new-task-due-date" [(ngModel)]="newTask.dueDate">
-          </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Description</label>
-            <textarea class="form-control bg-dark text-white" name="new-task-description" [(ngModel)]="newTask.description"></textarea>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" (click)="onSaveTask()" data-bs-dismiss="taskModal">Create task</button>
-            <button class="btn btn-secondary">Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="modal fade" id="taskModal" aria-labelledby="authModalLabel" aria-hidden="true" tabindex="-1" #taskModalRef>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">

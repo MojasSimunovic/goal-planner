@@ -10,7 +10,7 @@
   @for (goal of goalList(); track $index) {
     <div class="col-12 col-md-6 col-lg-4 d-flex">
       <div class="card goal-card shadow-sm text-light bg-dark border-0 h-100 w-100" [ngStyle]="achievedStyle(goal)">
-        <div class="position-absolute top-0 end-0 m-2 d-flex gap-1">
+        <div class="goal-actions position-absolute m-2 d-flex gap-1">
           <!-- Edit -->
           <button class="btn btn-sm btn-outline-info" (click)="onEditGoal(goal)">
             <i class="fas fa-pen"></i>

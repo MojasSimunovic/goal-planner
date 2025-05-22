@@ -3,7 +3,7 @@ import { Task } from '../../model/task';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { CdkDrag, CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem, CdkDragStart, CdkDragEnd } from '@angular/cdk/drag-drop';
 import { TaskBoardComponent } from './components/task-board/task-board.component';
 
 declare var bootstrap: any;
@@ -40,7 +40,6 @@ export class TaskListComponent implements OnInit {
     const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
     modal?.hide();
   }
-
   getAllTasksByUser() {
     this.taskService.getAllTasksByUser().subscribe((data: Task[]) => {
       const sortedTasks = data.sort((a, b) => (a.order || 0) - (b.order || 0));
@@ -120,10 +119,8 @@ export class TaskListComponent implements OnInit {
           category, 
           event.currentIndex
         );
-        console.log('Task moved to different column successfully');
       } catch (error) {
         console.error('Error moving task:', error);
-        // Revert the local change if Firebase update fails
         transferArrayItem(
           event.container.data,
           event.previousContainer.data,

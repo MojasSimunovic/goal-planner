@@ -23,6 +23,23 @@
   }
 }
 
+.goal-actions {
+  opacity: 0;
+  transition: all 0.3s ease;
+  top: 0.5rem;
+  right: 0.1rem;
+}
+
+.goal-card:hover .goal-actions {
+  opacity: 1;
+  right: 0.5rem;
+}
+
+.goal-card:focus-within .goal-actions {
+  opacity: 1;
+  right: 0.5rem;
+}
+
 .row {
   row-gap: 1.5em;
 }
