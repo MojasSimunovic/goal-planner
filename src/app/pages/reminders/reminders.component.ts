@@ -18,16 +18,7 @@ export class RemindersComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   @ViewChild('reminderModalRef') modalRef!: ElementRef;
   reminderService = inject(ReminderService);
-
   reminders = signal<Reminder[]>([]);
-
-  // newReminder: Reminder = {
-  //   title: "",
-  //   description: "",
-  //   reminderDateTime: new Date(),
-  //   isAcknowledged: false,
-  // }
-
   ngOnInit(): void {
     this.reminderService.getAllRemindersByUser().subscribe((data)=> {
       this.reminders.set(data);
@@ -37,17 +28,6 @@ export class RemindersComponent implements OnInit {
     const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
     modal?.hide();
   }
-  // onSaveReminder() {
-  //   this.reminderService.createNewReminder(this.newReminder);
-  //   this.newReminder = {
-  //     title: "",
-  //     description: "",
-  //     reminderDateTime: new Date(),
-  //     isAcknowledged: false,
-  //   }
-  //   this.closeModal();
-  // }
-
   toggleAcknowledge(reminder: Reminder) {
     if (reminder.id) {
       this.reminderService.deleteReminder(reminder.id);

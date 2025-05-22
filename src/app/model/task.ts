@@ -1,9 +1,10 @@
 export interface Task {
-  taskId?: string,
+  id?: string,
   taskName: string,
   description: string,
   frequency: string,
   dueDate: string,
   isCompleted: boolean,
-  userId?: string
+  userId?: string,
+  order?: number
 }

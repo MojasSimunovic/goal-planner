@@ -1,0 +1,36 @@
+:host {
+  min-width: 300px;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.card-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem;
+  background-color: transparent;
+  color: #ffffff;
+  border-bottom: 1px solid #333;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  :host {
+    min-width: 90%;
+    max-width: 90%;
+  }
+
+  .card-header {
+    font-size: 1.1rem;
+  }
+}

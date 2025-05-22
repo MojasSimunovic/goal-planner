@@ -1,0 +1,5 @@
+<div class="task-board">
+  <app-task-column cdkDropList title="Daily Tasks" color="success" [tasks]='dailyTasks()' (taskMoved)="onTaskMoved($event)"></app-task-column>
+  <app-task-column cdkDropList title="Weekly Tasks" color="primary" [tasks]='weeklyTasks()' (taskMoved)="onTaskMoved($event)"></app-task-column>
+  <app-task-column cdkDropList title="Monthly Tasks" color="secondary" [tasks]='monthlyTasks()' (taskMoved)="onTaskMoved($event)"></app-task-column>
+</div>

@@ -12,19 +12,16 @@ import { from, Observable } from 'rxjs';
 export class GoalService {
   private userId: string;
   firestore = inject(Firestore);
-  user! : LoggedUserData;
   constructor() {
     const auth = getAuth();
     this.userId = auth.currentUser?.uid || '';
   }
-
   createNewGoal(goal: Goal) {
     goal = {...goal, userId: this.userId};
     const goalsCollection = collection(this.firestore, 'goals');
     const newDocRef = doc(goalsCollection); // generate a new doc ref
   // set the ID manually inside the goal object (optional but useful)
     const goalWithId = { ...goal, id: newDocRef.id };
-
     return from(setDoc(newDocRef, goalWithId));
   }
   getAllGoalsFromUser() {

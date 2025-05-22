@@ -1,0 +1,8 @@
+<div class="task-item" cdkDrag>
+  <div class="form-check">
+    <input type="checkbox" [id]="task.id" class="form-check-input" />
+    <label [for]="task.id" class="form-check-label">{{ task.taskName }}</label>
+  </div>
+  <span class="badge bg-info">{{ task.dueDate | date: 'mediumDate' }}</span>
+  <p>{{ task.description }}</p>
+</div>
