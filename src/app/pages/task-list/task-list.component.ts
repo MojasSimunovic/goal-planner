@@ -2,9 +2,8 @@ import { Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } 
 import { Task } from '../../model/task';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { CdkDrag, CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem, CdkDragStart, CdkDragEnd } from '@angular/cdk/drag-drop';
-import { TaskBoardComponent } from './components/task-board/task-board.component';
+import { DatePipe } from '@angular/common';
+import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 declare var bootstrap: any;
 
@@ -21,6 +20,7 @@ export class TaskListComponent implements OnInit {
   weeklyTasks = signal<Task[]>([]);
   monthlyTasks = signal<Task[]>([]);
   taskList = signal<Task[]>([]);
+  isEditing : boolean = false;
   newTask: Task = {
     taskName: '',
     description: '',
@@ -39,6 +39,11 @@ export class TaskListComponent implements OnInit {
   closeModal() {
     const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
     modal?.hide();
+    this.isEditing = false;
+  }
+  openModal() {
+    const modal = new bootstrap.Modal(this.modalRef.nativeElement);
+    modal.show();
   }
   getAllTasksByUser() {
     this.taskService.getAllTasksByUser().subscribe((data: Task[]) => {
@@ -51,8 +56,13 @@ export class TaskListComponent implements OnInit {
   }
  
   async onSaveTask() {
-    try {
-      // Set initial order based on current tasks in the selected frequency
+    if (this.isEditing) {
+      this.taskService.onEditEntireTask(this.newTask).subscribe();
+      this.getAllTasksByUser();
+      this.closeModal();
+      this.resetNewTask();
+    } else {
+      try {
       const currentTasks = this.getTasksByFrequency(this.newTask.frequency);
       this.newTask.order = currentTasks.length;
 
@@ -60,8 +70,9 @@ export class TaskListComponent implements OnInit {
       this.getAllTasksByUser();
       this.closeModal();
       this.resetNewTask();
-    } catch (error) {
-      console.error('Error creating task:', error);
+      } catch (error) {
+        console.error('Error creating task:', error);
+      }
     }
   }
 
@@ -75,7 +86,6 @@ export class TaskListComponent implements OnInit {
       order: 0
     }
   }
-
   private getTasksByFrequency(frequency: string): Task[] {
     switch (frequency) {
       case 'Daily': return this.dailyTasks();
@@ -84,7 +94,6 @@ export class TaskListComponent implements OnInit {
       default: return [];
     }
   }
-
   async drop(event: CdkDragDrop<Task[]>, category: string) {
     const draggedTask = event.item.data;
     
@@ -132,22 +141,19 @@ export class TaskListComponent implements OnInit {
   }
   toggleTaskCompletion(task: Task) {
     const updatedTask = { ...task, isCompleted: !task.isCompleted };
-    // this.taskService.editTask(task.id!, updatedTask).then(() => {
-    //   this.getAllTasksByUser();
-    // });
+    this.taskService.onEditEntireTask(updatedTask).subscribe();
+    this.getAllTasksByUser();
   }
-
   editTaskModal(task: Task) {
-    // Open edit modal with task data
     this.newTask = { ...task };
-    // Show modal logic here
+    this.isEditing = true;
+    this.openModal();
   }
-
   deleteTask(taskId: string) {
     if (confirm('Are you sure you want to delete this task?')) {
-      // this.taskService.deleteTask(taskId).then(() => {
-      //   this.getAllTasksByUser();
-      // });
+      this.taskService.deleteTask(taskId).then(() => {
+        this.getAllTasksByUser();
+      });
     }
   }
 }

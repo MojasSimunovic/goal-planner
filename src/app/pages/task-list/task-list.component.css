@@ -248,17 +248,17 @@
 @keyframes slideInLeft {
   0% {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateY(-10px);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
 /* Task entry animations */
 .task-item {
-  animation: slideInLeft 0.4s ease-out;
+  animation: slideInLeft 0.5s ease-out;
 }
 
 /* Staggered animation for multiple tasks */

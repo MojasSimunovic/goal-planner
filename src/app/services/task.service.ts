@@ -5,7 +5,7 @@ import { UserRegister, UserLogin } from '../model/user';
 import { Task } from '../model/task';
 import { GoalService } from './goal.service';
 import { getAuth } from '@angular/fire/auth';
-import { addDoc, collection, collectionData, doc, Firestore, getDoc, getDocs, orderBy, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, getDoc, getDocs, orderBy, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +13,11 @@ import { addDoc, collection, collectionData, doc, Firestore, getDoc, getDocs, or
 export class TaskService {
   private userId: string;
   goalService = inject(GoalService);
-  // http = inject(HttpClient);
   firestore = inject(Firestore);
-
   constructor() {
     const auth = getAuth();
     this.userId = auth.currentUser?.uid || '';
   }
-
   createTask(task: Task): Observable<void> {
     if (!this.userId) throw new Error('No user logged in');
     
@@ -35,7 +32,6 @@ export class TaskService {
       map(() => void 0)
     );
   }
-
   // Get all tasks for the current user
   getAllTasksByUser(): Observable<Task[]> {
     if (!this.userId) throw new Error('No user logged in');
@@ -57,8 +53,6 @@ export class TaskService {
       })
     );
   }
-
-  // Get a single task by ID
   async getTaskById(taskId: string): Promise<Task | null> {
     const taskDocRef = doc(this.firestore, `tasks/${taskId}`);
     const snapshot = await getDoc(taskDocRef);
@@ -70,7 +64,6 @@ export class TaskService {
     }
   }
 
-  // Get tasks by frequency, sorted by order
   async getTasksByFrequency(frequency: string): Promise<Task[]> {
     if (!this.userId) throw new Error('No user logged in');
     
@@ -89,8 +82,6 @@ export class TaskService {
     // Sort by order on the client side
     return tasks.sort((a, b) => (a.order || 0) - (b.order || 0));
   }
-
-  // Updated editTask method - handles both column changes and reordering
   async editTask(taskId: string, newFrequency: string, newIndex?: number): Promise<void> {
     if (!this.userId) throw new Error('No user logged in');
 
@@ -130,8 +121,6 @@ export class TaskService {
       throw error;
     }
   }
-
-  // Reorder tasks within the same column
   async reorderTasksInColumn(taskId: string, frequency: string, newIndex: number): Promise<void> {
     if (!this.userId) throw new Error('No user logged in');
 
@@ -163,8 +152,6 @@ export class TaskService {
       throw error;
     }
   }
-
-  // Helper method to reorder tasks after inserting a new task
   private async reorderTasksAfterInsertion(
     frequency: string, 
     insertIndex: number, 
@@ -183,9 +170,16 @@ export class TaskService {
     
     await batch.commit();
   }
-
+  onEditEntireTask(task: Task) {
+    const taskDocRef = doc(this.firestore, `tasks/${task.id}`);
+    return from(setDoc(taskDocRef, task));
+  }
   // Simple version that only changes frequency (for backward compatibility)
   async editTaskFrequency(taskId: string, category: string): Promise<void> {
     return this.editTask(taskId, category);
+  }
+  deleteTask(taskId: string) {
+    const taskDocRef = doc(this.firestore, `tasks/${taskId}`);
+    return deleteDoc(taskDocRef);
   }
 }
