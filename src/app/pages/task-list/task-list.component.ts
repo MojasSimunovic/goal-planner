@@ -16,25 +16,17 @@ declare var bootstrap: any;
 })
 export class TaskListComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
-  goalService = inject(GoalService);
   taskService = inject(TaskService);
-
   taskList$ : Observable<Task[]> = new Observable<Task[]>();
   newTask: Task = {
-  taskId: 0,
-  taskName: '',
-  description: '',
-  frequency: '',
-  createdDate: new Date(), // ISO date string
-  startDate: '',   // ISO date string
-  dueDate: '',     // ISO date string
-  isCompleted: false,
-  userId: 0
+    taskName: '',
+    description: '',
+    frequency: '',
+    dueDate: '',   
+    isCompleted: false,
   }
-
   @ViewChild('taskModalRef') modalRef!: ElementRef;
   ngOnInit(): void {
-    // this.newTask.userId = this.goalService.user.userId;
     if (this.modalRef) {
       const modal = new bootstrap.Modal(this.modalRef);
     }
@@ -47,7 +39,7 @@ export class TaskListComponent implements OnInit {
   }
 
   getAllTasksByUser() {
-    this.taskList$ = this.taskService.getTasksByUser();
+    // this.taskList$ = this.taskService.getTasksByUser();
   }
  
   onSaveTask() {
@@ -62,15 +54,11 @@ export class TaskListComponent implements OnInit {
     this.getAllTasksByUser();
     this.closeModal();
     this.newTask = {
-      taskId: 0,
       taskName: '',
       description: '',
       frequency: '',
-      createdDate: new Date(), // ISO date string
-      startDate: '',   // ISO date string
       dueDate: '',     // ISO date string
       isCompleted: false,
-      userId: this.goalService.user.userId
     }
   }
 }

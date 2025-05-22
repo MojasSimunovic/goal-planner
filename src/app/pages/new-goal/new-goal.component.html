@@ -23,29 +23,29 @@
                   <textarea class="form-control" [(ngModel)]="goal.description" name="description"></textarea>
                 </div>
               </div>
-
               <div class="col-5">
-                <div *ngFor="let milestone of goal.milestones; let i = index" class="row">
+              @for(milestone of goal.milestones; track $index) {
+                <div class="row">
                   <div class="col-6">
                     <div class="mb-1">
                       <label class="form-label">Milestone Title</label>
-                      <input type="text" [(ngModel)]="milestone.milestoneName" [name]="'milestoneName' + i" class="form-control">
+                      <input type="text" [(ngModel)]="milestone.milestoneName" [name]="'milestoneName' + $index" class="form-control">
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="mb-1">
                       <label class="form-label">Milestone Target Date</label>
-                      @if(i > 0) {
+                      @if($index > 0) {
                       <input
                         type="date"
-                        [min]="goal.milestones[i - 1].targetDate || goal.startDate"
+                        [min]="goal.milestones[$index - 1].targetDate || goal.startDate"
                         [max]="goal.endDate"
                         [(ngModel)]="milestone.targetDate"
-                        [name]="'targetDate' + i"
+                        [name]="'targetDate' + $index"
                         class="form-control">
                       } @else {
                         
-                        <input type="date" [min]="goal.startDate" [max]="goal.endDate" [(ngModel)]="milestone.  targetDate" [name]="'targetDate' + i" class="form-control">
+                        <input type="date" [min]="goal.startDate" [max]="goal.endDate" [(ngModel)]="milestone.  targetDate" [name]="'targetDate' + $index" class="form-control">
                       }
                       
                     </div>
@@ -53,13 +53,14 @@
                   <div class="col-8">
                     <div class="mb-3">
                       <label class="form-label">Description</label>
-                      <textarea class="form-control" [(ngModel)]="milestone.description" [name]="'description' + i" required></textarea>
+                      <textarea class="form-control" [(ngModel)]="milestone.description" [name]="'description' + $index" required></textarea>
                     </div>
                   </div>
                   <div class="col-4 text-end my-auto">
                     <button type="button" class="btn btn-outline-secondary" (click)="addMilestone()">+</button>
                   </div>
                 </div>
+              }
               </div>
             </div>
 
@@ -67,7 +68,7 @@
               <div class="col-12 text-center">
                 <button type="button" class="btn btn-success" (click)="createGoal()">
                   @if(editing) {
-                    <span>Edit goal</span>
+                    <span>Done editing goal</span>
                   } @else {
                     <span> Create goal</span>
                   }

@@ -1,15 +1,12 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoalService } from '../../services/goal.service';
 import { Goal } from '../../model/goal';
-import { LoggedUserData } from '../../model/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-new-goal',
-  imports: [ReactiveFormsModule, FormsModule, NgFor],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './new-goal.component.html',
   styleUrl: './new-goal.component.css'
 })
