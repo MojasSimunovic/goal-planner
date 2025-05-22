@@ -4,14 +4,10 @@ import { GoalService } from '../../services/goal.service';
 import { Goal } from '../../model/goal';
 import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  trigger, transition, style, animate, query, stagger
-} from '@angular/animations';
-import { ReminderModalComponent } from "../../shared/reminder-modal/reminder-modal.component";
 
 @Component({
   selector: 'app-goal-list',
-  imports: [DatePipe, NgClass, FormsModule, NgStyle],
+  imports: [DatePipe, NgClass, FormsModule],
   templateUrl: './goal-list.component.html',
   styleUrl: './goal-list.component.css',
 })
@@ -49,11 +45,6 @@ export class GoalListComponent implements OnInit {
     const completed = goal.milestones?.filter(m => m.isCompleted).length || 0;
     return Math.round((completed / total) * 100);
   }
-  
-  achievedStyle(goal: Goal) {
-    return goal.isAchieved ? { opacity: 0.8 } : {};
-  }
-
   onEditGoal(goal: Goal) {
     this.router.navigate(['/new-goal'], { queryParams: { id: goal.id } });
   }
