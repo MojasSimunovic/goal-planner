@@ -21,13 +21,9 @@ import { getAuth } from '@angular/fire/auth';
   providedIn: 'root'
 })
 export class ReminderService {
-
   private userId: string;
   firestore = inject(Firestore);
-
   loginAuthUser = inject(LoginService);
-
-  
   constructor() {
     const auth = getAuth();
     this.userId = auth.currentUser?.uid || '';
