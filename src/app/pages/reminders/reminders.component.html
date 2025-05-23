@@ -9,8 +9,8 @@
   <div class="row g-3">
     @for( reminder of reminders(); track $index) {
       <div class="col-12 col-md-6 col-lg-4" >
-        <div class="card reminder-card shadow-sm h-100 d-flex flex-column justify-content-between"
-            [ngClass]="reminder.isAcknowledged ? 'bg-light acknowledged' : 'bg-warning-subtle pending'"
+        <div class="card animated-hover reminder-card shadow-sm h-100 d-flex flex-column justify-content-between"
+            [ngClass]="reminder.isAcknowledged ? ' acknowledged' : 'bg-gray pending'"
             [id]="reminder.id">
           <div class="card-body d-flex flex-column justify-content-between h-100">
             <div>
@@ -18,7 +18,7 @@
                 <h5 class="card-title mb-1">
                   <i class="fas fa-bell me-2 text-primary"></i>{{ reminder.title }}
                 </h5>
-                <span class="badge" [ngClass]="reminder.isAcknowledged ? 'bg-success' : 'bg-warning text-dark'">
+                <span class="badge animated-hover" [ngClass]="reminder.isAcknowledged ? 'bg-success' : 'bg-warning text-dark'">
                   {{ reminder.isAcknowledged ? 'Acknowledged' : 'Pending' }}
                 </span>
               </div>
@@ -35,7 +35,7 @@
               </div>
 
               <div class="mt-3 d-flex justify-content-end">
-                <button class="btn btn-sm"
+                <button class="btn btn-sm animated-hover"
                         [ngClass]="reminder.isAcknowledged ? 'btn-outline-secondary' : 'btn-success'"
                         (click)="toggleAcknowledge(reminder)">
                   <i class="fas"
