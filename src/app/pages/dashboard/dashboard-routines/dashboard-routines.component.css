@@ -1,0 +1,19 @@
+.text-start {
+  position: relative;
+  &:hover{
+    .btn-sm {
+      opacity: 1;
+      right: 1em;
+      transition: 0.4s ease;
+    }
+  }
+}
+
+.btn-sm {
+  position: absolute;
+  right: -1em;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+}
+

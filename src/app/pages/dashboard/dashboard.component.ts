@@ -103,7 +103,8 @@ export class DashboardComponent implements OnInit {
   }
 
   onSaveRoutine() {
-    this.routineService.createNewReminder(this.routine);
+    this.routineService.createNewRoutine(this.routine);
+    this.closeModal();
     this.routine = {
       name: '',
       icon: '',

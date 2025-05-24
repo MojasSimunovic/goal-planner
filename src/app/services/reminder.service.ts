@@ -32,7 +32,6 @@ export class ReminderService {
     const reminderDocRef = doc(this.firestore, `reminders/${reminderId}`);
     return deleteDoc(reminderDocRef);
   }
-
   getAllRemindersByUser(): Observable<Reminder[]> {
   if (!this.userId) throw new Error('No user logged in');
     const remindersRef = collection(this.firestore, 'reminders');

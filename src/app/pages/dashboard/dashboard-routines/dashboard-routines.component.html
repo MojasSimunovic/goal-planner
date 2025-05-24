@@ -6,19 +6,28 @@
             <table class="table table-bordered text-center align-middle">
               <thead>
                 <tr>
-                  <th>Routine Name</th>
-                  <th *ngFor="let day of days">{{ day }}</th>
+                  <th> Name</th>
+                  @for(day of days; track $index) {
+                    <th>{{ day }}</th>
+                  }
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let task of routines()">
+                @for(routine of routines();track $index) {
+                <tr>
                   <td class="text-start">
-                    <i [class]="task.icon" class="me-2"></i>{{ task.name }}
+                    <i [class]="routine.icon" class="me-2"></i>{{ routine.name }}
+                    <button class="btn btn-sm" (click)="onRemoveRoutine(routine)"><i class="fas fa-trash"></i></button>
                   </td>
-                  <td *ngFor="let completed of task.completions">
-                    <span *ngIf="completed" class="text-success fw-bold">✔</span>
+                  @for(completed of routine.completions;track $index) {
+                  <td (click)="markAsCompleted(routine, $index)">
+                    @if(completed) {
+                      <span class="text-success fw-bold">✔</span>
+                    }
                   </td>
+                  }
                 </tr>
+                }
               </tbody>
               <tfoot>
                   <tr>

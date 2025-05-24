@@ -19,7 +19,7 @@
     <div class="col-md-4">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title fw-bold mb-3">Goal Progress</h5>
+          <h5 class="card-title fw-bold mb-3">Week Progress</h5>
           <!-- Placeholder -->
           <p class="text-muted">Progress chart coming soon...</p>
         </div>
@@ -47,14 +47,7 @@
               [icons]="faIcons"
               (iconSelected)="routine.icon= $event">
             </app-dashboard-icon-picker>
-
             <p>Selected Icon: <i [class]="routine.icon"></i></p>
-            <!-- <label for="" class="form-label">Routine icon</label>
-            <select name="" id="" class="form-select bg-dark text-white" name="new-task-frequency" [(ngModel)]="routine.icon">
-              <option value="bi bi-bicycle">Bicycle</option>
-              <option value="bi bi-book">Book</option>
-              <option value="bi bi-cloud-sun">Cloud/Sun</option>
-            </select> -->
           </div>
           <div class="modal-footer">
             <button class="btn btn-primary" (click)="onSaveRoutine()" data-bs-dismiss="taskModal">Add routine</button>
