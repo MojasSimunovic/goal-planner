@@ -17,3 +17,9 @@
   opacity: 0;
 }
 
+.dashboard-routines-container {
+  display: flex;
+  gap: 0.1em;
+  justify-content: space-between;
+}
+

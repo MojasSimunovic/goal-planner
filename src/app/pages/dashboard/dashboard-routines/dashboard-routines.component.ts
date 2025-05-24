@@ -2,14 +2,15 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output, signal } from '@angular/core';
 import { RoutinesService } from '../../../services/routines.service';
 import { Routine } from '../../../model/routine';
+import { DashboardChartComponent } from "../dashboard-chart/dashboard-chart.component";
 
 @Component({
   selector: 'app-dashboard-routines',
-  imports: [],
+  imports: [DashboardChartComponent],
   templateUrl: './dashboard-routines.component.html',
   styleUrl: './dashboard-routines.component.css',
   host: {
-    class: 'card shadow-sm'
+    class: ''
   }
 })
 export class DashboardRoutinesComponent implements OnInit {

@@ -1,18 +1,19 @@
-
-        <div class="card-body">
-          <h5 class="card-title fw-bold mb-3">Routines Completion Trend</h5>
+<div class="dashboard-routines-container g-3">
+  <div class="card col-12 col-md-7">
+    <div class="card-body">
+      <h5 class="card-title fw-bold mb-3">Routines Completion Trend</h5>
           <!-- Placeholder table -->
-          <div class="table-responsive">
-            <table class="table table-bordered text-center align-middle">
-              <thead>
-                <tr>
-                  <th> Name</th>
-                  @for(day of days; track $index) {
-                    <th>{{ day }}</th>
-                  }
-                </tr>
-              </thead>
-              <tbody>
+      <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle">
+          <thead>
+            <tr>
+              <th> Name</th>
+                @for(day of days; track $index) {
+                  <th>{{ day }}</th>
+                }
+            </tr>
+          </thead>
+          <tbody>
                 @for(routine of routines();track $index) {
                 <tr>
                   <td class="text-start">
@@ -26,18 +27,22 @@
                     }
                   </td>
                   }
-                </tr>
+            </tr>
                 }
-              </tbody>
-              <tfoot>
-                  <tr>
-                    <td colspan="8" class="text-center">
-                    <button class="btn btn-outline-primary" (click)="addRoutine()">
-                      <i class="bi bi-plus-lg"></i> Add Routine
-                    </button>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        </div>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="8" class="text-center">
+                <button class="btn btn-outline-primary" (click)="addRoutine()">
+                  <i class="bi bi-plus-lg"></i> Add Routine
+                </button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <app-dashboard-chart [routines]="routines"></app-dashboard-chart>
+ 
+</div>

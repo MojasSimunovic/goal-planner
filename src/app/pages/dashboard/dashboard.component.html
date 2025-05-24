@@ -9,25 +9,9 @@
       <app-dashboard-card [card]="card"></app-dashboard-card>
     }
   </div>
-
   <!-- Trend & Progress -->
-  <div class="row g-3">
-    <div class="col-md-8">
-      <app-dashboard-routines (newRoutine)="openModal()"></app-dashboard-routines>
-    </div>
+  <app-dashboard-routines (newRoutine)="openModal()"></app-dashboard-routines>
 
-    <div class="col-md-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-body">
-          <h5 class="card-title fw-bold mb-3">Week Progress</h5>
-          <!-- Placeholder -->
-          <p class="text-muted">Progress chart coming soon...</p>
-        </div>
-      </div>
-    </div>
-  </div>
-    </div>
-</div>
 
 <div class="modal fade" id="routineModal" aria-labelledby="authModalLabel" aria-hidden="true" tabindex="-1" #routineModalRef>
   <div class="modal-dialog modal-dialog-centered">
