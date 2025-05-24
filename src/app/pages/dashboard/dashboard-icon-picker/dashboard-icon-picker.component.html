@@ -1,0 +1,14 @@
+<label>Pick icon for routine</label>
+<input
+  type="text"
+  placeholder="Search icons..."
+  [(ngModel)]="searchText"
+  class="search-input form-control bg-dark text-white"
+/>
+<div class="icon-grid">
+  @for(icon of filteredIcons; track $index) {
+    <div (click)="selectIcon(icon)" class="icon-option">
+      <i [class]="icon"></i>
+    </div>
+  }
+</div>

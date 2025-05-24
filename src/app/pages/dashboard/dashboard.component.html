@@ -43,15 +43,21 @@
             <input type="text" class="form-control" name="new-routine-title" [(ngModel)]="routine.name" required>
           </div>
           <div class="mb-3">
-            <label for="" class="form-label">Routine icon</label>
+            <app-dashboard-icon-picker
+              [icons]="faIcons"
+              (iconSelected)="routine.icon= $event">
+            </app-dashboard-icon-picker>
+
+            <p>Selected Icon: <i [class]="routine.icon"></i></p>
+            <!-- <label for="" class="form-label">Routine icon</label>
             <select name="" id="" class="form-select bg-dark text-white" name="new-task-frequency" [(ngModel)]="routine.icon">
               <option value="bi bi-bicycle">Bicycle</option>
               <option value="bi bi-book">Book</option>
               <option value="bi bi-cloud-sun">Cloud/Sun</option>
-            </select>
+            </select> -->
           </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" (click)="onSaveRoutine()" data-bs-dismiss="taskModal">Create reminder</button>
+            <button class="btn btn-primary" (click)="onSaveRoutine()" data-bs-dismiss="taskModal">Add routine</button>
             <button class="btn btn-secondary">Cancel</button>
           </div>
         </form>

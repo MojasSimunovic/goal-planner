@@ -11,7 +11,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let task of routines">
+                <tr *ngFor="let task of routines()">
                   <td class="text-start">
                     <i [class]="task.icon" class="me-2"></i>{{ task.name }}
                   </td>

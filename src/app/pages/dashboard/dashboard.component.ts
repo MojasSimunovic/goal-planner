@@ -9,18 +9,23 @@ import { Goal } from '../../model/goal';
 import { Reminder } from '../../model/reminder';
 import { Routine } from '../../model/routine';
 import { FormsModule } from '@angular/forms';
+import {icons } from '../../model/iconList';
+import { DashboardIconPickerComponent } from './dashboard-icon-picker/dashboard-icon-picker.component';
+import { RoutinesService } from '../../services/routines.service';
 
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-dashboard',
-  imports: [ DashboardCardComponent, DashboardRoutinesComponent, FormsModule,],
+  imports: [ DashboardCardComponent, DashboardRoutinesComponent, FormsModule,DashboardIconPickerComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-
+  routineService = inject(RoutinesService);
+  faIcons = icons;
+  selectedIcon = '';
   @ViewChild('routineModalRef') modalRef!: ElementRef;
   taskService = inject(TaskService);
   goalService = inject(GoalService);
@@ -63,9 +68,6 @@ export class DashboardComponent implements OnInit {
     completions: [false, false,false,false,false,false, false]
   }
 
-  // constructor(private firestore: Firestore) {
-  //   console.log('Firestore is ready:', firestore);
-  // }
   ngOnInit(): void {
     if (this.modalRef) {
       const modal = new bootstrap.Modal(this.modalRef);
@@ -101,6 +103,11 @@ export class DashboardComponent implements OnInit {
   }
 
   onSaveRoutine() {
-    console.log(this.routine);
+    this.routineService.createNewReminder(this.routine);
+    this.routine = {
+      name: '',
+      icon: '',
+      completions: [false, false,false,false,false,false, false]
+    }
   }
 }
