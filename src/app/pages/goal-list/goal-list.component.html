@@ -75,7 +75,8 @@
                           [id]="(goal?.id ?? 'goal') + $index"
                           [(ngModel)]="milestone.isCompleted"
                           (change)="onMilestoneToggled(goal)" />
-                        <label class="form-check-label" [for]="(goal?.id ?? 'goal') + $index">
+                        <label class="form-check-label"
+                        [ngClass]="milestone.isCompleted ? 'milestone-done' : ''" [for]="(goal?.id ?? 'goal') + $index">
                           <h6>{{ milestone.milestoneName }}</h6>
                           <span>{{ milestone.description }}</span>
                         </label>

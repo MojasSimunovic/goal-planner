@@ -1,0 +1,34 @@
+
+        <div class="card-body">
+          <h5 class="card-title fw-bold mb-3">Routines Completion Trend</h5>
+          <!-- Placeholder table -->
+          <div class="table-responsive">
+            <table class="table table-bordered text-center align-middle">
+              <thead>
+                <tr>
+                  <th>Routine Name</th>
+                  <th *ngFor="let day of days">{{ day }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let task of routines">
+                  <td class="text-start">
+                    <i [class]="task.icon" class="me-2"></i>{{ task.name }}
+                  </td>
+                  <td *ngFor="let completed of task.completions">
+                    <span *ngIf="completed" class="text-success fw-bold">✔</span>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                  <tr>
+                    <td colspan="8" class="text-center">
+                    <button class="btn btn-outline-primary" (click)="addRoutine()">
+                      <i class="bi bi-plus-lg"></i> Add Routine
+                    </button>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>

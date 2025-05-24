@@ -1,1 +1,11 @@
-<p>dashboard-card works!</p>
+
+<div class="card text-center shadow-sm">
+  <div class="card-body">
+    <div [innerHTML]="card.icon" class="mb-2" style="font-size: 1.8rem;"></div>
+    <h5 class="card-title fw-semibold">{{ card.title }}</h5>
+    <h3 class="mb-0">{{ card.value }}</h3>
+    <small class="text-muted">{{ card.subtext }}</small>
+  </div>
+</div>
+
+    

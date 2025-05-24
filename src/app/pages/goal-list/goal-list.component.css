@@ -25,6 +25,9 @@
 
 .goal-card--done {
   background:#272b2e !important;
+  h5 {
+    text-decoration: line-through !important;
+  }
 }
 
 .goal-actions {
@@ -79,6 +82,10 @@
 h5 {
   padding-top: 1em;
   /* text-align: center; */
+}
+
+.milestone-done {
+  text-decoration: line-through;
 }
 
 .row {

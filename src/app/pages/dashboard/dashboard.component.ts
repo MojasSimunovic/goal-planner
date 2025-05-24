@@ -1,63 +1,106 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { Component, computed, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { DashboardCardComponent } from './dashboard-card/dashboard-card.component';
+import { DashboardRoutinesComponent } from "./dashboard-routines/dashboard-routines.component";
+import { Task } from '../../model/task';
+import { TaskService } from '../../services/task.service';
+import { GoalService } from '../../services/goal.service';
+import { ReminderService } from '../../services/reminder.service';
+import { Goal } from '../../model/goal';
+import { Reminder } from '../../model/reminder';
+import { Routine } from '../../model/routine';
+import { FormsModule } from '@angular/forms';
+
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgIf, NgFor],
+  imports: [ DashboardCardComponent, DashboardRoutinesComponent, FormsModule,],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
-summaryCards = [
-  {
-    title: 'Total Tasks',
-    value: 12,
-    subtext: '4 completed',
-    icon: '📋'
-  },
-  {
-    title: 'Active Goals',
-    value: 3,
-    subtext: '2 in progress',
-    icon: '🏁'
-  },
-  {
-    title: 'Reminders',
-    value: 5,
-    subtext: '2 upcoming',
-    icon: '🔔'
-  },
-  {
-    title: 'Completion Rate',
-    value: '75%',
-    subtext: 'This week',
-    icon: '📈'
+export class DashboardComponent implements OnInit {
+
+  @ViewChild('routineModalRef') modalRef!: ElementRef;
+  taskService = inject(TaskService);
+  goalService = inject(GoalService);
+  reminderService = inject(ReminderService);
+  taskList = signal<Task[]>([]);
+  goalsList = signal<Goal[]>([]);
+  reminderList = signal<Reminder[]>([]);
+  summaryCards = computed(() => [
+    {
+      title: 'Total Tasks',
+      value: this.taskList().length,
+      subtext: `${this.taskList().filter(t => t.isCompleted).length} completed`,
+      icon: '📋'
+    },
+    {
+      title: 'Active Goals',
+      value: this.goalsList().length,
+      subtext: `${this.goalsList().filter(t => t.isAchieved).length} achieved`,
+      icon: '🏁'
+    },
+    {
+      title: 'Reminders',
+      value: this.reminderList().length,
+      subtext: `${this.reminderList().filter(r => new Date(r.reminderDateTime) > new Date()).length} upcoming`,
+      icon: '🔔'
+    }
+  ]);
+  summaryCardRoutine = computed(() => [
+    {
+      title: 'Total Tasks',
+      value: this.taskList().length,
+      subtext: `${this.taskList().filter(t => t.isCompleted).length} completed`,
+      icon: '📋'
+    },
+  ]);
+
+  routine : Routine = {
+    name: '',
+    icon: '',
+    completions: [false, false,false,false,false,false, false]
   }
-];
 
-days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-tasks = [
-  {
-    name: 'Morning Exercise',
-    icon: 'bi bi-bicycle',
-    completions: [true, true, false, false, true, false, false]
-  },
-  {
-    name: 'Read 30 Minutes',
-    icon: 'bi bi-book',
-    completions: [true, false, true, true, false, false, false]
-  },
-  {
-    name: 'Meditation',
-    icon: 'bi bi-cloud-sun',
-    completions: [true, true, true, false, false, false, false]
+  // constructor(private firestore: Firestore) {
+  //   console.log('Firestore is ready:', firestore);
+  // }
+  ngOnInit(): void {
+    if (this.modalRef) {
+      const modal = new bootstrap.Modal(this.modalRef);
+    }
+    this.getTasksByUser();
+    this.getGoalsByUser();
+    this.getRemindersByUser();
   }
-];
 
+  closeModal() {
+    const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
+    modal?.hide();
+  }
+  openModal() {
+    const modal = new bootstrap.Modal(this.modalRef.nativeElement);
+    modal.show();
+  }
+  getTasksByUser() {
+    this.taskService.getAllTasksByUser().subscribe((data)=> {
+      this.taskList.set(data);
+    })
+  }
+  getGoalsByUser() {
+    this.goalService.getAllGoalsFromUser().subscribe((data)=> {
+      this.goalsList.set(data);
+    })
+  }
 
-  constructor(private firestore: Firestore) {
-    console.log('Firestore is ready:', firestore);
+  getRemindersByUser() {
+    this.reminderService.getAllRemindersByUser().subscribe((data)=> {
+      this.reminderList.set(data);
+    })
+  }
+
+  onSaveRoutine() {
+    console.log(this.routine);
   }
 }
