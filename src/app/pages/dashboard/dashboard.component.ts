@@ -12,15 +12,18 @@ import { FormsModule } from '@angular/forms';
 import {icons } from '../../model/iconList';
 import { DashboardIconPickerComponent } from './dashboard-icon-picker/dashboard-icon-picker.component';
 import { RoutinesService } from '../../services/routines.service';
+import { ButtonComponent } from "../../shared/button/button.component";
+import { TitleComponent } from "../../shared/title/title.component";
 
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-dashboard',
-  imports: [ DashboardCardComponent, DashboardRoutinesComponent, FormsModule,DashboardIconPickerComponent],
+  imports: [DashboardCardComponent, DashboardRoutinesComponent, FormsModule, DashboardIconPickerComponent, ButtonComponent, TitleComponent],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
+
 })
 export class DashboardComponent implements OnInit {
   routineService = inject(RoutinesService);

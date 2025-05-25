@@ -107,7 +107,6 @@ export class TaskListComponent implements OnInit {
           category, 
           event.currentIndex
         );
-        console.log('Task reordered successfully');
       } catch (error) {
         console.error('Error reordering task:', error);
         // Revert the local change if Firebase update fails

@@ -1,13 +1,10 @@
-<div class="card shadow-sm h-100">
-  <div class="card-body">
-    <h5 class="card-title fw-bold mb-3">Week Progress</h5>
-    <div class="d-block">
-      <canvas baseChart width="400" height="400"
-          [type]="'line'"
-          [data]="lineChartData()"
-          [options]="lineChartOptions"
-          [legend]="lineChartLegend">
-      </canvas>
-    </div>  
-  </div>
-</div>
+<app-section-title>Week Progress</app-section-title>
+<div class="chart-container">
+  <canvas id="progressChart" baseChart height="400"
+    [type]="'line'"
+    [data]="lineChartData()"
+    [options]="lineChartOptions"
+    [legend]="lineChartLegend">
+  </canvas>
+</div>  
+

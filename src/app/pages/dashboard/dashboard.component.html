@@ -2,14 +2,12 @@
   <div class="container">
 
 
-  <h1 class="dashboard-title">Dashboard</h1>
-  <!-- Summary Cards -->
+  <app-title>Dashboard</app-title>
   <div class="stats-grid">
     @for(card of summaryCards(); track $index) {
       <app-dashboard-card [card]="card"></app-dashboard-card>
     }
   </div>
-  <!-- Trend & Progress -->
   <app-dashboard-routines (newRoutine)="openModal()"></app-dashboard-routines>
 
 
@@ -31,11 +29,13 @@
               [icons]="faIcons"
               (iconSelected)="routine.icon= $event">
             </app-dashboard-icon-picker>
-            <p>Selected Icon: <i [class]="routine.icon"></i></p>
+            <p class="pt-5">Selected Icon: <i [class]="routine.icon"></i></p>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" (click)="onSaveRoutine()" data-bs-dismiss="taskModal">Add routine</button>
-            <button class="btn btn-secondary">Cancel</button>
+            <!-- <button class="btn btn-save" (click)="onSaveRoutine()" data-bs-dismiss="taskModal">Add routine</button> -->
+             <app-button (click)="onSaveRoutine()">Add routine</app-button>
+             <app-button (click)="onSaveRoutine()" btnType="cancel">Cancel</app-button>
+            <button class="btn btn-cancel" (click)="closeModal()">Cancel</button>
           </div>
         </form>
       </div>

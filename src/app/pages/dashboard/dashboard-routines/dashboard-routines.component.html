@@ -1,10 +1,6 @@
-<div class="dashboard-routines-container g-3">
-  <div class="card col-12 col-md-7">
-    <div class="card-body">
-      <h5 class="card-title fw-bold mb-3">Routines Completion Trend</h5>
-          <!-- Placeholder table -->
-      <div class="table-responsive">
-        <table class="table table-bordered text-center align-middle">
+<div class="routines-section">
+      <app-section-title>Routines Completion Trend</app-section-title>
+        <table class="routines-table">
           <thead>
             <tr>
               <th> Name</th>
@@ -30,19 +26,10 @@
             </tr>
                 }
           </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="8" class="text-center">
-                <button class="btn btn-outline-primary" (click)="addRoutine()">
+        </table>
+          <button class="add-routine-btn" (click)="addRoutine()">
                   <i class="bi bi-plus-lg"></i> Add Routine
                 </button>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </div>
-  </div>
-  <app-dashboard-chart [routines]="routines"></app-dashboard-chart>
- 
 </div>
+<app-dashboard-chart [routines]="routines"></app-dashboard-chart>
+ 

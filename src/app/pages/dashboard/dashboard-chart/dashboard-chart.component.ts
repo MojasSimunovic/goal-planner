@@ -2,14 +2,15 @@ import { Component, computed, Input, OnInit, signal, effect } from '@angular/cor
 import { Routine } from '../../../model/routine';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { SectionTitleComponent } from "../../../shared/section-title/section-title.component";
 
 @Component({
   selector: 'app-dashboard-chart',
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, SectionTitleComponent],
   templateUrl: './dashboard-chart.component.html',
   styleUrl: './dashboard-chart.component.css',
   host: {
-    class: 'col-12 col-md-5'
+    class: 'progress-section'
   }
 })
 export class DashboardChartComponent {
@@ -20,11 +21,64 @@ export class DashboardChartComponent {
       {
         data: this.calculateDailySuccess(this.routines()),
         label: 'Weekly Progress',
+        borderColor: '#00d4ff',
+        borderWidth: 3,
         fill: true,
-        tension: 0.1,
-        borderColor: '#20c997',
-        backgroundColor: 'rgba(39, 43, 46, 0.3)'
-      }
+        tension: 0.4,
+        pointBackgroundColor: '#00d4ff',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: '#7c3aed',
+        pointHoverBorderColor: '#ffffff',
+        pointHoverBorderWidth: 3,
+        options: {
+          responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                },
+                ticks: {
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  font: {
+                    weight: 600
+                  }
+                }
+              },
+              y: {
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.1)',
+                  borderColor: 'rgba(255, 255, 255, 0.2)'
+                },
+                ticks: {
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  font: {
+                    weight: 600
+                  }
+                },
+                beginAtZero: true
+              }
+            },
+            elements: {
+              point: {
+                hoverRadius: 10
+              }
+            },
+            interaction: {
+              intersect: false,
+              mode: 'index'
+            }
+        }
+      },
     ]
   }));
   public lineChartOptions: ChartOptions<'line'> = {

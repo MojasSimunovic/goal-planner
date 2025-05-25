@@ -3,14 +3,15 @@ import { Component, EventEmitter, inject, OnInit, Output, signal } from '@angula
 import { RoutinesService } from '../../../services/routines.service';
 import { Routine } from '../../../model/routine';
 import { DashboardChartComponent } from "../dashboard-chart/dashboard-chart.component";
+import { SectionTitleComponent } from "../../../shared/section-title/section-title.component";
 
 @Component({
   selector: 'app-dashboard-routines',
-  imports: [DashboardChartComponent],
+  imports: [DashboardChartComponent, SectionTitleComponent],
   templateUrl: './dashboard-routines.component.html',
   styleUrl: './dashboard-routines.component.css',
-  host: {
-    class: ''
+   host: {
+    class: 'content-grid'
   }
 })
 export class DashboardRoutinesComponent implements OnInit {
@@ -31,7 +32,6 @@ export class DashboardRoutinesComponent implements OnInit {
   markAsCompleted(routine: Routine ,index: number) {
     let updatedCompletions = [...routine.completions] as [boolean, boolean, boolean, boolean, boolean, boolean, boolean];
     updatedCompletions[index] = !updatedCompletions[index];
-    console.log(updatedCompletions);
     let updatedRoutine: Routine = { ...routine, completions: updatedCompletions };
     this.routineService.updateRoutine(updatedRoutine).subscribe();
     this.getAllRoutines()

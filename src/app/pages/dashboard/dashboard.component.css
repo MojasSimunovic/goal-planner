@@ -1,43 +1,31 @@
-/* .dashboard-wrapper {
-  background-color: #121212;
-  min-height: 100vh;
-  color: #fff;
-} */
-
-/* .card {
-  border-radius: 12px;
-  background-color: #ffffff;
-  color: #333;
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-}
-
-.table th, .table td {
-  vertical-align: middle;
-}
-
-.table th {
-  background-color: #f1f1f1;
-} */
-.dashboard-title {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 2rem;
-  background: linear-gradient(135deg, #ffffff, #00d4ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-align: center;
-  animation: slideInDown 0.8s ease;
-}
-
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-dialog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transition: left 0.5s;
+}
+
+.modal-dialog:hover .modal-dialog::before {
+  left: 100%;
+}
+
+.modal-footer {
+  border-top: none;
 }

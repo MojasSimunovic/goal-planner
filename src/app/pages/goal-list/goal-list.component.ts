@@ -29,13 +29,11 @@ export class GoalListComponent implements OnInit {
     if(goal.milestones.length === goal.milestones.filter(m => m.isCompleted).length) {
       goal = { ...goal, isAchieved: true };
       this.goalService.updateGoal(goal).subscribe({
-        next: () => console.log(goal),
         error: (err: any) => console.error('Failed to update milestone:', err)
       });
     } else {
       goal = { ...goal, isAchieved: false };
       this.goalService.updateGoal(goal).subscribe({
-        next: () => console.log(goal),
         error: (err: any) => console.error('Failed to update milestone:', err)
       });
     }
