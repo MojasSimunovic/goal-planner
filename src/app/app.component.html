@@ -1,46 +1,52 @@
- <nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <a routerLink="home" class="navbar-brand fw-bold">
-      <i class="fas fa-check-double me-2"></i>
-       Task Master
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        @if (userSignal()) {
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="dashboard" routerLinkActive="link-active">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="" routerLink="tasks" routerLinkActive="link-active">Tasks</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="" routerLink="goals" routerLinkActive="link-active">Goals</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="" routerLink="reminders" routerLinkActive="link-active">Reminders</a>
-        </li>
-        }
-      </ul>
+<div class="bg-particles" id="particles"></div>
 
-      <div class="d-flex align-items-center">
-        @if (userSignal()) {
-          <p class=" mb-0 me-2"><i class="fas fa-user me-2"></i>{{ userSignal()?.email }}</p>
-          <button class="btn btn-outline-light btn-danger" (click)="onLogout()">
-             Logout
-          </button>
-        } @else {
-          <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#authModal">
-            <i class="fas fa-user me-2"></i> Login
-          </button>
-        }
+<header class="header">
+  <div class="nav-container">
+    <div class="logo">
+      <a routerLink="home" class="navbar-brand fw-bold">
+          <i class="fas fa-check-double me-2"></i>
+          Task Master
+        </a>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark">   
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+          aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-links">
+            @if (userSignal()) {
+            <li class="">
+              <a class="" aria-current="page" routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+            </li>
+            <li class="">
+              <a class="" aria-current="" routerLink="tasks" routerLinkActive="active">Tasks</a>
+            </li>
+            <li class="">
+              <a class="" aria-current="" routerLink="goals" routerLinkActive="active">Goals</a>
+            </li>
+            <li class="">
+              <a class="" aria-current="" routerLink="reminders" routerLinkActive="active">Reminders</a>
+            </li>
+            }
+          </ul>
       </div>
+    </nav>
+    <div class="user-section">
+            @if (userSignal()) {
+              <span class=""><i class="fas fa-user me-2"></i>{{ userSignal()?.email }}</span>
+              <button class="logout-btn" (click)="onLogout()">
+                Logout
+              </button>
+            } @else {
+              <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#authModal">
+                <i class="fas fa-user me-2"></i> Login
+              </button>
+            }
     </div>
   </div>
-</nav>
+</header>
+
 
 <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true" #authModalRef>
   <div class="modal-dialog modal-dialog-centered">
@@ -128,9 +134,9 @@
     </div>
   </div>
 </div>
-<div class="container-main pt-4">
+<main class="main-content">
   <router-outlet />
-</div>
+</main>
 <footer class="bg-dark">
   <div class="text-md-start justify-content-between py-4 px-4 px-xl-5">
     <div class="text-white text-center mb-md-0 container">

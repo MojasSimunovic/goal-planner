@@ -1,10 +1,10 @@
-<div class="container-fluid py-4 dashboard-wrapper bg-dark">
+<div class="">
   <div class="container">
 
 
-  <h2 class="fw-bold mb-4 text-white">Dashboard</h2>
+  <h1 class="dashboard-title">Dashboard</h1>
   <!-- Summary Cards -->
-  <div class="row g-3 mb-4">
+  <div class="stats-grid">
     @for(card of summaryCards(); track $index) {
       <app-dashboard-card [card]="card"></app-dashboard-card>
     }

@@ -7,7 +7,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
   styleUrl: './dashboard-card.component.css',
   encapsulation: ViewEncapsulation.None,
   host: {
-    class: 'col-6 col-md-4'
+    class: 'stat-card'
   }
 })
 export class DashboardCardComponent {
