@@ -14,6 +14,7 @@ import { DashboardIconPickerComponent } from './dashboard-icon-picker/dashboard-
 import { RoutinesService } from '../../services/routines.service';
 import { ButtonComponent } from "../../shared/button/button.component";
 import { TitleComponent } from "../../shared/title/title.component";
+import { Router } from '@angular/router';
 
 
 declare var bootstrap: any;
@@ -26,6 +27,8 @@ declare var bootstrap: any;
 
 })
 export class DashboardComponent implements OnInit {
+  
+  router = inject(Router);
   routineService = inject(RoutinesService);
   faIcons = icons;
   selectedIcon = '';
@@ -41,19 +44,22 @@ export class DashboardComponent implements OnInit {
       title: 'Total Tasks',
       value: this.taskList().length,
       subtext: `${this.taskList().filter(t => t.isCompleted).length} completed`,
-      icon: '📋'
+      icon: '⚡',
+      link: 'tasks',
     },
     {
       title: 'Active Goals',
       value: this.goalsList().length,
       subtext: `${this.goalsList().filter(t => t.isAchieved).length} achieved`,
-      icon: '🏁'
+      icon: '🚀',
+      link: 'goals',
     },
     {
       title: 'Reminders',
       value: this.reminderList().length,
       subtext: `${this.reminderList().filter(r => new Date(r.reminderDateTime) > new Date()).length} upcoming`,
-      icon: '🔔'
+      icon: '⏰',
+      link: 'reminders',
     }
   ]);
   summaryCardRoutine = computed(() => [
@@ -113,5 +119,9 @@ export class DashboardComponent implements OnInit {
       icon: '',
       completions: [false, false,false,false,false,false, false]
     }
+  }
+
+  navigateTo(link: string) {
+    this.router.navigate([`/${link}`]);
   }
 }

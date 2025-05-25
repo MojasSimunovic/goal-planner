@@ -1,11 +1,9 @@
-<div class="">
-  <div class="container">
 
-
+<div class="container">
   <app-title>Dashboard</app-title>
   <div class="stats-grid">
     @for(card of summaryCards(); track $index) {
-      <app-dashboard-card [card]="card"></app-dashboard-card>
+      <app-dashboard-card [card]="card" (click)="navigateTo(card.link)"></app-dashboard-card>
     }
   </div>
   <app-dashboard-routines (newRoutine)="openModal()"></app-dashboard-routines>
