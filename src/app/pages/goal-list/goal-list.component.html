@@ -1,25 +1,22 @@
 <div class="container py-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="fw-bold">Goals</h1>
-    <button class="btn btn-primary" (click)="navigateToNewGoal()">
-      <i class="fas fa-plus me-2" ></i>
-      New Goal
-    </button>
+    <app-title>Goals</app-title>
+    <app-button (click)="navigateToNewGoal()">New Goal</app-button>
   </div>
-<div class="row">
+<div class="row goals-container">
   @for (goal of goalList(); track $index) {
     <div class="col-12 col-md-6 col-lg-4 d-flex">
       <div class="card goal-card shadow-sm text-light border-0 h-100 w-100" [ngClass]="goal.isAchieved ? 'goal-card--done':''">
         <div class="card-header">
           <div class="goal-actions position-absolute m-2 d-flex gap-1">
             <!-- Edit -->
-          <button class="btn btn-sm btn-outline-info" (click)="onEditGoal(goal)">
-            <i class="fas fa-pen"></i>
+          <button class="action-btn edit-btn" (click)="onEditGoal(goal)">
+            ✏️
             </button>
 
             <!-- Delete -->
-            <button class="btn btn-sm btn-outline-danger" (click)="onDeleteGoal(goal)">
-              <i class="fas fa-trash"></i>
+            <button class="action-btn delete-btn" (click)="onDeleteGoal(goal)">
+             🗑️
             </button>
           </div>
                       <h5 class="card-title mb-3">

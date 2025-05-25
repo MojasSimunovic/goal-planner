@@ -3,13 +3,14 @@ import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Reminder } from '../../model/reminder';
 import { ReminderService } from '../../services/reminder.service';
+import { ButtonComponent } from "../button/button.component";
 
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-reminder-modal',
-  imports: [FormsModule],
+  imports: [FormsModule, ButtonComponent],
   templateUrl: './reminder-modal.component.html',
   styleUrl: './reminder-modal.component.css'
 })

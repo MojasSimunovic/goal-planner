@@ -6,6 +6,12 @@
   padding: 2rem;
   position: relative;
   overflow: hidden;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .section-title {

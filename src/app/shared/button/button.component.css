@@ -10,10 +10,16 @@ button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  animation: slideInDown 0.8s ease;
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
   }
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .cancel {

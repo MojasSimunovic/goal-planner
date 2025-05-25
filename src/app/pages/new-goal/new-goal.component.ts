@@ -3,10 +3,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoalService } from '../../services/goal.service';
 import { Goal } from '../../model/goal';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonComponent } from '../../shared/button/button.component';
 
 @Component({
   selector: 'app-new-goal',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, ButtonComponent],
   templateUrl: './new-goal.component.html',
   styleUrl: './new-goal.component.css'
 })

@@ -4,12 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { DatePipe } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { TitleComponent } from '../../shared/title/title.component';
+import { ButtonComponent } from "../../shared/button/button.component";
+import { SectionTitleComponent } from "../../shared/section-title/section-title.component";
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-task-list',
-  imports: [FormsModule, DatePipe, DragDropModule],
+  imports: [FormsModule, DatePipe, DragDropModule, TitleComponent, ButtonComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })

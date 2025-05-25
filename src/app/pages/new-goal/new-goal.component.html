@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row pt-4">
     <div class="col-12 mx-auto">
-      <div class="card">
-        <div class="card-body">
+      <div class="goal-card">
+        <div class="goal-card-body">
           <form #goalFormRef="ngForm">
             <div class="row">
               <div class="col-6">
@@ -65,14 +65,14 @@
             </div>
 
             <div class="row pt-3">
-              <div class="col-12 text-center">
-                <button type="button" class="btn btn-success" (click)="createGoal()">
+              <div class="col-12 text-center d-flex justify-content-center">
+                <app-button (click)="createGoal()">
                   @if(editing) {
                     <span>Done editing goal</span>
                   } @else {
                     <span> Create goal</span>
                   }
-                </button>
+                </app-button>
               </div>
             </div>
           </form>

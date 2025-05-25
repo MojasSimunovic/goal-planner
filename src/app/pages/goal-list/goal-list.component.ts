@@ -4,10 +4,12 @@ import { GoalService } from '../../services/goal.service';
 import { Goal } from '../../model/goal';
 import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TitleComponent } from '../../shared/title/title.component';
+import { ButtonComponent } from '../../shared/button/button.component';
 
 @Component({
   selector: 'app-goal-list',
-  imports: [DatePipe, NgClass, FormsModule],
+  imports: [DatePipe, NgClass, FormsModule, TitleComponent, ButtonComponent],
   templateUrl: './goal-list.component.html',
   styleUrl: './goal-list.component.css',
 })

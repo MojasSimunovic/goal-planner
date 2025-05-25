@@ -1,35 +1,31 @@
 <div class="container py-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="fw-bold">Task Planner</h1>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
-      <i class="fa fa-plus me-2"></i>
-      New Task</button>
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <app-title>Task Planner</app-title>
+    <app-button data-bs-toggle="modal" data-bs-target="#taskModal">Add New Task</app-button>
   </div>
-
-<div class="task-board" cdkDropListGroup>
+  <div class="task-board" cdkDropListGroup>
   <!-- Daily Tasks Column -->
-  <div class="task-column" 
+    <div class="task-column" 
     cdkDropList
     [cdkDropListData]="dailyTasks()"
     (cdkDropListDropped)="drop($event, 'Daily')"
     id="daily-list"
-  >
+    >
     <div class="card-header bg-success text-white">
-      <i class="fas fa-calendar-day me-2"></i>Daily Tasks
-      <small class="d-block mt-1">{{ dailyTasks().length }} tasks</small>
+      <h5 class="column-title"><i class="fas fa-calendar-day me-2"></i>Daily Tasks</h5>
+      <p class="task-count">3 tasks</p>
     </div>
     <div class="card-body">
       @for(task of dailyTasks(); track task.id) {
         <div class="task-item" cdkDrag [cdkDragData]="task" [id]="task.id">
           <div class="task-actions">
-            <button class="btn btn-sm btn-outline-primary" (click)="editTaskModal(task)">
-              <i class="fas fa-edit"></i>
+            <button class="action-btn edit-btn" (click)="editTaskModal(task)">
+              ✏️
             </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="deleteTask(task.id!)">
-              <i class="fas fa-trash"></i>
+            <button class="action-btn delete-btn" (click)="deleteTask(task.id!)">
+              🗑️
             </button>
           </div>
-          
           <div class="form-check">
             <input 
               type="checkbox" 
@@ -39,7 +35,7 @@
               [checked]="task.isCompleted"
               (change)="toggleTaskCompletion(task)"
             />
-            <label [for]="task.id" class="form-check-label" [class.text-decoration-line-through]="task.isCompleted">
+            <label [for]="task.id" class="form-check-label task-title" [class.text-decoration-line-through]="task.isCompleted">
               {{ task.taskName }}
             </label>
           </div>
@@ -49,7 +45,7 @@
               <i class="fas fa-calendar me-1"></i>
               {{ task.dueDate | date: 'shortDate' }}
             </span>
-            <small class="text-muted">
+            <small class="">
               <i class="fas fa-clock me-1"></i>
               Daily
             </small>
@@ -57,7 +53,7 @@
           
           @if(task.description) {
             <p class="mb-0">
-              <i class="fas fa-align-left me-1 text-muted"></i>
+              <i class="fas fa-align-left me-1"></i>
               {{ task.description }}
             </p>
           }
@@ -70,8 +66,8 @@
       }
       
       @if(dailyTasks().length === 0) {
-        <div class="text-center text-muted py-4">
-          <button type="button" class="btn btn-sm"  data-bs-toggle="modal" data-bs-target="#taskModal">
+        <div class="text-center py-4">e
+          <button type="button" class="btn btn-white"  data-bs-toggle="modal" data-bs-target="#taskModal">
             <i class="fas fa-plus-circle fa-2x mb-2"></i>
           </button>
           
@@ -90,18 +86,21 @@
     id="weekly-list"
   >
     <div class="card-header bg-primary text-white">
-      <i class="fas fa-calendar-week me-2"></i>Weekly Tasks
-      <small class="d-block mt-1">{{ weeklyTasks().length }} tasks</small>
+      <h5>
+        <i class="fas fa-calendar-week me-2"></i>Weekly Tasks
+      </h5>
+      
+      <p class="d-block mt-1">{{ weeklyTasks().length }} tasks</p>
     </div>
     <div class="card-body">
       @for(task of weeklyTasks(); track task.id) {
         <div class="task-item" cdkDrag [cdkDragData]="task" [id]="task.id">
-          <div class="task-actions">
-            <button class="btn btn-sm btn-outline-primary" (click)="editTaskModal(task)">
-              <i class="fas fa-edit"></i>
+           <div class="task-actions">
+            <button class="action-btn edit-btn" (click)="editTaskModal(task)">
+              ✏️
             </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="deleteTask(task.id!)">
-              <i class="fas fa-trash"></i>
+            <button class="action-btn delete-btn" (click)="deleteTask(task.id!)">
+              🗑️
             </button>
           </div>
           
@@ -124,7 +123,7 @@
               <i class="fas fa-calendar me-1"></i>
               {{ task.dueDate | date: 'shortDate' }}
             </span>
-            <small class="text-muted">
+            <small class="">
               <i class="fas fa-clock me-1"></i>
               Weekly
             </small>
@@ -132,7 +131,7 @@
           
           @if(task.description) {
             <p class="mb-0">
-              <i class="fas fa-align-left me-1 text-muted"></i>
+              <i class="fas fa-align-left me-1"></i>
               {{ task.description }}
             </p>
           }
@@ -145,8 +144,8 @@
       }
       
       @if(weeklyTasks().length === 0) {
-        <div class="text-center text-muted py-4">
-          <button type="button"  class="btn btn-sm"  data-bs-toggle="modal" data-bs-target="#taskModal">
+        <div class="text-center py-4">
+          <button type="button"  class="btn btn-white"  data-bs-toggle="modal" data-bs-target="#taskModal">
             <i class="fas fa-plus-circle fa-2x mb-2"></i>
           </button>
           <p>No weekly tasks yet.<br>Drag tasks here or create new ones!</p>
@@ -163,18 +162,20 @@
     id="monthly-list"
   >
     <div class="card-header bg-secondary text-white">
-      <i class="fas fa-calendar-alt me-2"></i>Monthly Tasks
-      <small class="d-block mt-1">{{ monthlyTasks().length }} tasks</small>
+      <h5>
+        <i class="fas fa-calendar-week me-2"></i>Monthly Tasks
+      </h5>
+      <p class="d-block mt-1">{{ weeklyTasks().length }} tasks</p>
     </div>
     <div class="card-body">
       @for(task of monthlyTasks(); track task.id) {
         <div class="task-item" cdkDrag [cdkDragData]="task" [id]="task.id">
           <div class="task-actions">
-            <button class="btn btn-sm btn-outline-primary" (click)="editTaskModal(task)">
-              <i class="fas fa-edit"></i>
+            <button class="action-btn edit-btn" (click)="editTaskModal(task)">
+              ✏️
             </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="deleteTask(task.id!)">
-              <i class="fas fa-trash"></i>
+            <button class="action-btn delete-btn" (click)="deleteTask(task.id!)">
+              🗑️
             </button>
           </div>
           
@@ -197,7 +198,7 @@
               <i class="fas fa-calendar me-1"></i>
               {{ task.dueDate | date: 'shortDate' }}
             </span>
-            <small class="text-muted">
+            <small class="">
               <i class="fas fa-clock me-1"></i>
               Monthly
             </small>
@@ -205,7 +206,7 @@
           
           @if(task.description) {
             <p class="mb-0">
-              <i class="fas fa-align-left me-1 text-muted"></i>
+              <i class="fas fa-align-left me-1"></i>
               {{ task.description }}
             </p>
           }
@@ -218,8 +219,8 @@
       }
       
       @if(monthlyTasks().length === 0) {
-        <div class="text-center text-muted py-4">
-          <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#taskModal">
+        <div class="text-center py-4">
+          <button type="button" class="btn btn-white" data-bs-toggle="modal" data-bs-target="#taskModal">
             <i class="fas fa-plus-circle fa-2x mb-2"></i>
           </button>
           <p>No monthly tasks yet.<br>Drag tasks here or create new ones!</p>
@@ -259,8 +260,8 @@
             <textarea class="form-control bg-dark text-white" name="new-task-description" [(ngModel)]="newTask.description"></textarea>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" (click)="onSaveTask()" data-bs-dismiss="taskModal">Create task</button>
-            <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+            <app-button data-bs-dismiss="taskModal" (click)="onSaveTask()">Add Task</app-button>
+            <app-button (click)="closeModal()" btnType="cancel" >Cancel</app-button>
           </div>
         </form>
       </div>
