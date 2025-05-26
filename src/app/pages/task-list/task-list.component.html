@@ -66,7 +66,7 @@
       }
       
       @if(dailyTasks().length === 0) {
-        <div class="text-center py-4">e
+        <div class="text-center py-4">
           <button type="button" class="btn btn-white"  data-bs-toggle="modal" data-bs-target="#taskModal">
             <i class="fas fa-plus-circle fa-2x mb-2"></i>
           </button>
@@ -260,8 +260,8 @@
             <textarea class="form-control bg-dark text-white" name="new-task-description" [(ngModel)]="newTask.description"></textarea>
           </div>
           <div class="modal-footer">
-            <app-button data-bs-dismiss="taskModal" (click)="onSaveTask()">Add Task</app-button>
-            <app-button (click)="closeModal()" btnType="cancel" >Cancel</app-button>
+            <app-button data-bs-dismiss="taskModal" (clickEmit)="onSaveTask()">Add Task</app-button>
+            <app-button (clickEmit)="closeModal()" btnType="cancel" >Cancel</app-button>
           </div>
         </form>
       </div>

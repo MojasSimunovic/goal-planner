@@ -66,7 +66,7 @@
 
             <div class="row pt-3">
               <div class="col-12 text-center d-flex justify-content-center">
-                <app-button (click)="createGoal()">
+                <app-button (clickEmit)="createGoal()">
                   @if(editing) {
                     <span>Done editing goal</span>
                   } @else {

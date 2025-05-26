@@ -4,10 +4,11 @@ import { RoutinesService } from '../../../services/routines.service';
 import { Routine } from '../../../model/routine';
 import { DashboardChartComponent } from "../dashboard-chart/dashboard-chart.component";
 import { SectionTitleComponent } from "../../../shared/section-title/section-title.component";
+import { ButtonComponent } from "../../../shared/button/button.component";
 
 @Component({
   selector: 'app-dashboard-routines',
-  imports: [DashboardChartComponent, SectionTitleComponent],
+  imports: [DashboardChartComponent, SectionTitleComponent, ButtonComponent],
   templateUrl: './dashboard-routines.component.html',
   styleUrl: './dashboard-routines.component.css',
    host: {

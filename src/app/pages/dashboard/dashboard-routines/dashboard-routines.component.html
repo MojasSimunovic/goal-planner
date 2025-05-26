@@ -1,5 +1,6 @@
-<div class="routines-section">
+<div class="routines-section text-center">
       <app-section-title>Routines Completion Trend</app-section-title>
+      @if(routines().length) {
         <table class="routines-table">
           <thead>
             <tr>
@@ -27,9 +28,16 @@
                 }
           </tbody>
         </table>
-          <button class="add-routine-btn" (click)="addRoutine()">
+      } @else {
+        <p class="text-white">Currently no routines, please add some!</p>
+      }
+      <div class="d-flex justify-content-center">
+          <app-button (clickEmit)="addRoutine()"><i class="bi bi-plus-lg"></i>Add Routine</app-button>
+      </div>
+    
+        <!-- <button class="add-routine-btn" (click)="addRoutine()">
                   <i class="bi bi-plus-lg"></i> Add Routine
-                </button>
+                </button> -->
 </div>
 <app-dashboard-chart [routines]="routines"></app-dashboard-chart>
  

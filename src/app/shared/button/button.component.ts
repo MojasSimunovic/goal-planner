@@ -8,11 +8,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 })
 export class ButtonComponent {
-  @Output() click = new EventEmitter();
+  @Output() clickEmit = new EventEmitter();
   @Input() btnType?: string;
 
   onClick() {
-    this.click.emit();
+    this.clickEmit.emit();
   }
   getButtonClasses() {
     return this.btnType === 'cancel' ? 'cancel' : '';

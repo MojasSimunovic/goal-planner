@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { catchError, from, Observable, throwError } from 'rxjs';
-import { UserRegister, UserLogin, LoggedUserData } from '../model/user';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, UserCredential, user, authState, User } from '@angular/fire/auth';
+import {  Injectable } from '@angular/core';
+import {  from, Observable, throwError } from 'rxjs';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, user, authState, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -19,7 +17,7 @@ export class LoginService {
     return from(signInWithEmailAndPassword(this.auth, email, password));
   }
 
-  register(email: string, password: string) {
+  register( email: string, password: string) {
     return from(createUserWithEmailAndPassword(this.auth, email, password));
   }
 

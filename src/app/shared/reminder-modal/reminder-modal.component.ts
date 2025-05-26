@@ -1,5 +1,5 @@
 import { DatePipe, NgClass } from '@angular/common';
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Reminder } from '../../model/reminder';
 import { ReminderService } from '../../services/reminder.service';
@@ -16,9 +16,11 @@ declare var bootstrap: any;
 })
 export class ReminderModalComponent {
 
+  @Output() click = new EventEmitter();
+
   @ViewChild('reminderModalRef') modalRef!: ElementRef;
 
-   reminderService = inject(ReminderService);
+  reminderService = inject(ReminderService);
 
   newReminder: Reminder = {
     title: "",

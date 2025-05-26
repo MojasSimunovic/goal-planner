@@ -30,10 +30,8 @@
             <p class="pt-5">Selected Icon: <i [class]="routine.icon"></i></p>
           </div>
           <div class="modal-footer">
-            <!-- <button class="btn btn-save" (click)="onSaveRoutine()" data-bs-dismiss="taskModal">Add routine</button> -->
-             <app-button (click)="onSaveRoutine()">Add routine</app-button>
-             <app-button (click)="onSaveRoutine()" btnType="cancel">Cancel</app-button>
-            <button class="btn btn-cancel" (click)="closeModal()">Cancel</button>
+             <app-button (clickEmit)="onSaveRoutine()">Add routine</app-button>
+             <app-button (clickEmit)="closeModal()" btnType="cancel">Cancel</app-button>
           </div>
         </form>
       </div>

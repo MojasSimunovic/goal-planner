@@ -3,15 +3,16 @@ import { AfterViewInit, Component, DestroyRef, ElementRef, inject, OnInit, signa
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LoginService } from './services/login.service';
-import { UserLogin, UserRegister } from './model/user';
+import { UserLogin} from './model/user';
 import { NgIf } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { ButtonComponent } from "./shared/button/button.component";
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, FormsModule, RouterLink, RouterLinkActive, ButtonComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

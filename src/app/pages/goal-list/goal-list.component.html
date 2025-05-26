@@ -1,7 +1,7 @@
 <div class="container py-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <app-title>Goals</app-title>
-    <app-button (click)="navigateToNewGoal()">New Goal</app-button>
+    <app-button (clickEmit)="navigateToNewGoal()">Add New Goal</app-button>
   </div>
 <div class="row goals-container">
   @for (goal of goalList(); track $index) {

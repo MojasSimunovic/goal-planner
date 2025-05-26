@@ -1,22 +1,20 @@
+.reminders-wrap {
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
 .reminder-card {
-  border-left: 5px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.3s ease;
-  background: rgba(255, 255, 255, 0.95);
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 0.75rem 1.25rem rgba(0, 0, 0, 0.1);
   }
-
-  &.acknowledged {
-    border-color: #198754;
-  }
-
-  &.pending {
-    border-color: #ffc107;
-  }
-
   .card-title {
+    color: #f1f1f1;
     font-weight: 600;
+    max-width: 80%;
   }
 
   .badge {
@@ -27,6 +25,10 @@
   button {
     transition: all 0.2s ease;
   }
+}
+
+.card-text {
+  color: lightgray;
 }
 
 .animated-hover:not(.card) {
@@ -46,4 +48,9 @@
 
 .animated-hover:hover .animated-hover::before {
   left: 100%;
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

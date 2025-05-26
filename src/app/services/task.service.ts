@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, from, map, Observable, throwError } from 'rxjs';
-import { UserRegister, UserLogin } from '../model/user';
+import { UserLogin } from '../model/user';
 import { Task } from '../model/task';
 import { GoalService } from './goal.service';
 import { getAuth } from '@angular/fire/auth';

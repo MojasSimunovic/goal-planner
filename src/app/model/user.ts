@@ -4,13 +4,7 @@ export interface UserLogin {
 
 }
 
-export interface UserRegister {
-  userId: number,
-  emailId: string,
-  password: string,
-  fullName: string,
-  mobileNo: string  
-}
+
 
 export interface LoggedUserData {
   createdDate: string, 

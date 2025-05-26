@@ -4,21 +4,23 @@ import { FormsModule } from '@angular/forms';
 import { Reminder } from '../../model/reminder';
 import { ReminderService } from '../../services/reminder.service';
 import { ReminderModalComponent } from "../../shared/reminder-modal/reminder-modal.component";
+import { TitleComponent } from "../../shared/title/title.component";
+import { ButtonComponent } from "../../shared/button/button.component";
 
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-reminders',
-  imports: [NgClass, DatePipe, FormsModule, ReminderModalComponent],
+  imports: [NgClass, DatePipe, FormsModule, ReminderModalComponent, TitleComponent, ButtonComponent],
   templateUrl: './reminders.component.html',
   styleUrl: './reminders.component.css'
 })
 export class RemindersComponent implements OnInit {
-  private destroyRef = inject(DestroyRef);
   @ViewChild('reminderModalRef') modalRef!: ElementRef;
   reminderService = inject(ReminderService);
   reminders = signal<Reminder[]>([]);
+  
   ngOnInit(): void {
     this.reminderService.getAllRemindersByUser().subscribe((data)=> {
       this.reminders.set(data);

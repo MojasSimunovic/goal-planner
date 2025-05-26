@@ -85,8 +85,8 @@
                   <label for="" class="form-label">Login password</label>
                   <input class="form-control bg-dark text-white" type="password" [(ngModel)]="password" name="password" placeholder="Password" required />
                 </div>
-                <div class="mb-3">
-                  <button type="submit" class="btn btn-success m-auto">Login</button>
+                <div class="mb-3 d-flex justify-content-center">
+                  <app-button (clickEmit)="onLogin()">Login</app-button>
                 </div>
               </form>
               @if(error) {
@@ -122,8 +122,9 @@
                     class="form-control bg-dark text-white"
                   />
                 </div>
-                <div class="mb-3">
-                  <button class="btn btn-primary" type="submit">Register</button>
+                <div class="mb-3 d-flex justify-content-center">
+                  <app-button (clickEmit)="onRegister()">Register</app-button>
+                  <!-- <button class="btn btn-primary" type="submit">Register</button> -->
                 </div>
               </form>
               @if(error) {

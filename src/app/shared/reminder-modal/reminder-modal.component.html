@@ -20,8 +20,8 @@
             <textarea class="form-control bg-dark text-white" name="new-reminder-description" [(ngModel)]="newReminder.description"></textarea>
           </div>
           <div class="modal-footer">
-            <app-button (click)="onSaveReminder()" data-bs-dismiss="taskModal">Create reminder</app-button>
-             <app-button (click)="closeModal()" btnType="cancel">Cancel</app-button>
+            <app-button data-bs-dismiss="taskModal" (clickEmit)="onSaveReminder()">Create reminder</app-button>
+             <app-button (clickEmit)="closeModal()" btnType="cancel">Cancel</app-button>
           </div>
         </form>
       </div>
