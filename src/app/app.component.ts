@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LoginService } from './services/login.service';
@@ -15,13 +15,14 @@ declare var bootstrap: any;
   selector: 'app-root',
   imports: [RouterOutlet, FormsModule, RouterLink, RouterLinkActive, ButtonComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent  implements OnInit {
+  private modal: any;
   email = '';
   password = '';
   error: string | null = null;
-  @ViewChild('authModalRef') modalRef!: ElementRef;
   @ViewChild('registerTrigger') registerTriggerRef!: ElementRef;
   private destroyRef = inject(DestroyRef);
   loginService = inject(LoginService);
@@ -34,17 +35,20 @@ export class AppComponent  implements OnInit {
   isLoggedIn = signal(false);
   private subscription: Subscription = new Subscription();
   ngOnInit(): void {
-    const modalEl = document.getElementById('loginModal');
-    if (modalEl) {
-      const modal = new bootstrap.Modal(modalEl);
-    }
+    // const modal = new bootstrap.Modal(this.modalRef);
     this.createParticles();
     this.subscription.add(
       this.loginService.click$.subscribe(data => {
         this.registerTriggerRef.nativeElement.click();
-        console.log(data)
       })
     );
+  }
+  ngAfterViewInit() {
+    const modalElement = document.getElementById('authModal');
+    if (modalElement) {
+      console.log(modalElement)
+      this.modal = new (window as any).bootstrap.Modal(modalElement);
+    }
   }
   async onLogin() {
     try {
@@ -54,9 +58,7 @@ export class AppComponent  implements OnInit {
         this.router.navigate(['/dashboard']);
       }, 1000)
     } catch (err: any) {
-      
       this.error = err.message;
-      alert(this.error);
     }
   }
   async onRegister() {
@@ -79,13 +81,13 @@ export class AppComponent  implements OnInit {
       this.error = err.message;
     }
   }
+
   openModal() {
-    const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
-    modal?.show();
+    this.modal?.show();
   }
+
   closeModal() {
-    const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
-    modal?.hide();
+    this.modal?.hide();
   }
   createParticles() {
     const container = document.getElementById('particles');
@@ -103,7 +105,5 @@ export class AppComponent  implements OnInit {
       container?.appendChild(particle);
     }
   }
-  emitLogin() {
-    this.openModal();
-  }
+
 }
