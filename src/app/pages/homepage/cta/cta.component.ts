@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-cta',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './cta.component.css'
 })
 export class CtaComponent {
+  loginService = inject(LoginService);
 
+  onClickLogin() {
+    this.loginService.emitClick();
+  }
 }

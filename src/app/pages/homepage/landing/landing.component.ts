@@ -11,9 +11,6 @@ export class LandingComponent {
 
   loginService = inject(LoginService);
 
-  // @Output() emitLogin = new EventEmitter();
-  // @Output() emitRegister = new EventEmitter();
-
   onClickRegister() {
     this.loginService.emitClick();
   }
