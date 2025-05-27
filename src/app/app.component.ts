@@ -45,7 +45,9 @@ export class AppComponent  implements OnInit {
         this.router.navigate(['/dashboard']);
       }, 1000)
     } catch (err: any) {
+      
       this.error = err.message;
+      alert(this.error);
     }
   }
   async onRegister() {

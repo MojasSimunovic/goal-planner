@@ -27,11 +27,6 @@ body {
   color: #121212;
 }
 
-/* Optional: spacing for the page content */
-main {
-  padding: 2rem;
-}
-
 /* Font Awesome icons spacing */
 .fa-icon {
   margin-right: 0.5rem;
