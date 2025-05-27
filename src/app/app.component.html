@@ -37,9 +37,9 @@
               <span class=""><i class="fas fa-user me-2"></i>{{ userSignal()?.email }}</span>
               <button class="logout-btn" (click)="onLogout()">
                 Logout
-              </button>
+              </button >
             } @else {
-              <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#authModal">
+              <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#authModal" #registerTrigger>
                 <i class="fas fa-user me-2"></i> Login
               </button>
             }
@@ -51,7 +51,7 @@
 </header>
 
 
-<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true" #authModalRef>
+<div #authModal class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header border-0 pb-0">

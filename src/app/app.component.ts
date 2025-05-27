@@ -7,6 +7,7 @@ import { UserLogin} from './model/user';
 import { NgIf } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ButtonComponent } from "./shared/button/button.component";
+import { Subscription } from 'rxjs';
 
 declare var bootstrap: any;
 
@@ -21,6 +22,7 @@ export class AppComponent  implements OnInit {
   password = '';
   error: string | null = null;
   @ViewChild('authModalRef') modalRef!: ElementRef;
+  @ViewChild('registerTrigger') registerTriggerRef!: ElementRef;
   private destroyRef = inject(DestroyRef);
   loginService = inject(LoginService);
   router = inject(Router);
@@ -30,12 +32,19 @@ export class AppComponent  implements OnInit {
     password: ''
   };
   isLoggedIn = signal(false);
+  private subscription: Subscription = new Subscription();
   ngOnInit(): void {
     const modalEl = document.getElementById('loginModal');
     if (modalEl) {
       const modal = new bootstrap.Modal(modalEl);
     }
     this.createParticles();
+    this.subscription.add(
+      this.loginService.click$.subscribe(data => {
+        this.registerTriggerRef.nativeElement.click();
+        console.log(data)
+      })
+    );
   }
   async onLogin() {
     try {
@@ -70,6 +79,10 @@ export class AppComponent  implements OnInit {
       this.error = err.message;
     }
   }
+  openModal() {
+    const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
+    modal?.show();
+  }
   closeModal() {
     const modal = bootstrap.Modal.getInstance(this.modalRef.nativeElement);
     modal?.hide();
@@ -89,5 +102,8 @@ export class AppComponent  implements OnInit {
       particle.style.animationDuration = (Math.random() * 3 + 3) + 's';       
       container?.appendChild(particle);
     }
+  }
+  emitLogin() {
+    this.openModal();
   }
 }

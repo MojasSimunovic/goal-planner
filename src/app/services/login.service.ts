@@ -1,5 +1,5 @@
 import {  Injectable } from '@angular/core';
-import {  from, Observable, throwError } from 'rxjs';
+import {  from, Observable, Subject, throwError } from 'rxjs';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, user, authState, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
@@ -8,9 +8,15 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
   user$: Observable<User | null>;
+  private clickSubject = new Subject<any>();
+  click$ = this.clickSubject.asObservable();
 
   constructor(private auth: Auth, private router: Router) {
      this.user$ = authState(this.auth);
+  }
+
+  emitClick(data?: any) {
+    this.clickSubject.next(data);
   }
 
   login(email: string, password: string) {

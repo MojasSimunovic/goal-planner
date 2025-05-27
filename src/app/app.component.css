@@ -113,12 +113,6 @@ footer {
   min-height: 90svh;
 }
 
-@media (max-width: 768px) {
-  .main-content {
-    padding: 1rem;
-  }
-}
-
 @keyframes fadeInUp {
   from { transform: translateY(30px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
