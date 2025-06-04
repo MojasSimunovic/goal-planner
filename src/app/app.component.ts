@@ -9,8 +9,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ButtonComponent } from "./shared/button/button.component";
 import { Subscription } from 'rxjs';
 
-declare var bootstrap: any;
-
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, FormsModule, RouterLink, RouterLinkActive, ButtonComponent],
