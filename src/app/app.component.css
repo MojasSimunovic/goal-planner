@@ -26,7 +26,7 @@
 
 .navbar {
   width: 100%;
-  @media(max-width:992px) {
+  @media (max-width: 992px) {
     width: 100%;
   }
 }
@@ -35,8 +35,8 @@
 }
 
 .navbar-nav {
-  margin:  0 auto;
-  @media(max-width:992px) {
+  margin: 0 auto;
+  @media (max-width: 992px) {
     padding-top: 2em;
   }
 }
@@ -51,7 +51,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  @media(max-width:992px) {
+  @media (max-width: 992px) {
     margin-bottom: auto;
   }
 }
@@ -76,25 +76,19 @@
   color: #00d4ff;
   background: rgba(0, 212, 255, 0.1);
 }
-     
+
 .user-section {
   display: flex;
   align-items: center;
   gap: 1rem;
-  @media(max-width:992px) {
+  @media (max-width: 992px) {
     justify-content: center;
     padding-top: 2em;
   }
 }
 
-.logout-btn {
-  background: linear-gradient(135deg, #fd6d79, #ff3742); 
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.btn-login {
+  color: #f1f1f1 !important;
 }
 
 .logout-btn:hover {
@@ -120,6 +114,12 @@ footer {
 }
 
 @keyframes fadeInUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
