@@ -1,269 +1,349 @@
 <div class="container py-5">
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
     <app-title>Task Planner</app-title>
-    <app-button data-bs-toggle="modal" data-bs-target="#taskModal">Add New Task</app-button>
+    <app-button data-bs-toggle="modal" data-bs-target="#taskModal"
+      >Add New Task</app-button
+    >
   </div>
   <div class="task-board" cdkDropListGroup>
-  <!-- Daily Tasks Column -->
-    <div class="task-column" 
-    cdkDropList
-    [cdkDropListData]="dailyTasks()"
-    (cdkDropListDropped)="drop($event, 'Daily')"
-    id="daily-list"
+    <!-- Daily Tasks Column -->
+    <div
+      class="task-column"
+      cdkDropList
+      [cdkDropListData]="dailyTasks()"
+      (cdkDropListDropped)="drop($event, 'Daily')"
+      id="daily-list"
     >
-    <div class="card-header bg-success text-white">
-      <h5 class="column-title"><i class="fas fa-calendar-day me-2"></i>Daily Tasks</h5>
-      <p class="task-count">3 tasks</p>
-    </div>
-    <div class="card-body">
-      @for(task of dailyTasks(); track task.id) {
+      <div class="card-header bg-success text-white">
+        <h5 class="column-title">
+          <i class="fas fa-calendar-day me-2"></i>Daily Tasks
+        </h5>
+        <p class="task-count">3 tasks</p>
+      </div>
+      <div class="card-body">
+        @for(task of dailyTasks(); track task.id) {
         <div class="task-item" cdkDrag [cdkDragData]="task" [id]="task.id">
           <div class="task-actions">
             <button class="action-btn edit-btn" (click)="editTaskModal(task)">
               ✏️
             </button>
-            <button class="action-btn delete-btn" (click)="deleteTask(task.id!)">
+            <button
+              class="action-btn delete-btn"
+              (click)="deleteTask(task.id!)"
+            >
               🗑️
             </button>
           </div>
           <div class="form-check">
-            <input 
-              type="checkbox" 
-              [id]="task.id" 
-              class="form-check-input" 
+            <input
+              type="checkbox"
+              [id]="task.id"
+              class="form-check-input"
               [attr.aria-label]="task.taskName"
               [checked]="task.isCompleted"
               (change)="toggleTaskCompletion(task)"
             />
-            <label [for]="task.id" class="form-check-label task-title" [class.text-decoration-line-through]="task.isCompleted">
+            <label
+              [for]="task.id"
+              class="form-check-label task-title"
+              [class.text-decoration-line-through]="task.isCompleted"
+            >
               {{ task.taskName }}
             </label>
           </div>
-          
+
           <div class="d-flex justify-content-between align-items-center mb-2">
             <span class="badge bg-info">
               <i class="fas fa-calendar me-1"></i>
-              {{ task.dueDate | date: 'shortDate' }}
+              {{ task.dueDate | date : "shortDate" }}
             </span>
             <small class="">
               <i class="fas fa-clock me-1"></i>
               Daily
             </small>
           </div>
-          
+
           @if(task.description) {
-            <p class="mb-0">
-              <i class="fas fa-align-left me-1"></i>
-              {{ task.description }}
-            </p>
+          <p class="mb-0">
+            <i class="fas fa-align-left me-1"></i>
+            {{ task.description }}
+          </p>
           }
-          
+
           <!-- Progress indicator -->
-          <div class="progress mt-2" style="height: 3px;">
-            <div class="progress-bar bg-success" [style.width.%]="task.isCompleted ? 100 : 0"></div>
+          <div class="progress mt-2" style="height: 3px">
+            <div
+              class="progress-bar bg-success"
+              [style.width.%]="task.isCompleted ? 100 : 0"
+            ></div>
           </div>
         </div>
-      }
-      
-      @if(dailyTasks().length === 0) {
+        } @if(dailyTasks().length === 0) {
         <div class="text-center py-4">
-          <button type="button" class="btn btn-white"  data-bs-toggle="modal" data-bs-target="#taskModal">
+          <button
+            type="button"
+            class="btn btn-white"
+            data-bs-toggle="modal"
+            data-bs-target="#taskModal"
+          >
             <i class="fas fa-plus-circle fa-2x mb-2"></i>
           </button>
-          
-          <p>No daily tasks yet.<br>Drag tasks here or create new ones!</p>
-        </div>
-      }
-    </div>
-  </div>
-  
 
-  <!-- Weekly Tasks Column -->
-  <div class="task-column" 
-    cdkDropList
-    [cdkDropListData]="weeklyTasks()"
-    (cdkDropListDropped)="drop($event, 'Weekly')"
-    id="weekly-list"
-  >
-    <div class="card-header bg-primary text-white">
-      <h5>
-        <i class="fas fa-calendar-week me-2"></i>Weekly Tasks
-      </h5>
-      
-      <p class="d-block mt-1">{{ weeklyTasks().length }} tasks</p>
+          <p>No daily tasks yet.<br />Drag tasks here or create new ones!</p>
+        </div>
+        }
+      </div>
     </div>
-    <div class="card-body">
-      @for(task of weeklyTasks(); track task.id) {
+
+    <!-- Weekly Tasks Column -->
+    <div
+      class="task-column"
+      cdkDropList
+      [cdkDropListData]="weeklyTasks()"
+      (cdkDropListDropped)="drop($event, 'Weekly')"
+      id="weekly-list"
+    >
+      <div class="card-header bg-primary text-white">
+        <h5><i class="fas fa-calendar-week me-2"></i>Weekly Tasks</h5>
+
+        <p class="d-block mt-1">{{ weeklyTasks().length }} tasks</p>
+      </div>
+      <div class="card-body">
+        @for(task of weeklyTasks(); track task.id) {
         <div class="task-item" cdkDrag [cdkDragData]="task" [id]="task.id">
-           <div class="task-actions">
+          <div class="task-actions">
             <button class="action-btn edit-btn" (click)="editTaskModal(task)">
               ✏️
             </button>
-            <button class="action-btn delete-btn" (click)="deleteTask(task.id!)">
+            <button
+              class="action-btn delete-btn"
+              (click)="deleteTask(task.id!)"
+            >
               🗑️
             </button>
           </div>
-          
+
           <div class="form-check">
-            <input 
-              type="checkbox" 
-              [id]="task.id" 
-              class="form-check-input" 
+            <input
+              type="checkbox"
+              [id]="task.id"
+              class="form-check-input"
               [attr.aria-label]="task.taskName"
               [checked]="task.isCompleted"
               (change)="toggleTaskCompletion(task)"
             />
-            <label [for]="task.id" class="form-check-label" [class.text-decoration-line-through]="task.isCompleted">
+            <label
+              [for]="task.id"
+              class="form-check-label"
+              [class.text-decoration-line-through]="task.isCompleted"
+            >
               {{ task.taskName }}
             </label>
           </div>
-          
+
           <div class="d-flex justify-content-between align-items-center mb-2">
             <span class="badge bg-info">
               <i class="fas fa-calendar me-1"></i>
-              {{ task.dueDate | date: 'shortDate' }}
+              {{ task.dueDate | date : "shortDate" }}
             </span>
             <small class="">
               <i class="fas fa-clock me-1"></i>
               Weekly
             </small>
           </div>
-          
+
           @if(task.description) {
-            <p class="mb-0">
-              <i class="fas fa-align-left me-1"></i>
-              {{ task.description }}
-            </p>
+          <p class="mb-0">
+            <i class="fas fa-align-left me-1"></i>
+            {{ task.description }}
+          </p>
           }
-          
+
           <!-- Progress indicator -->
-          <div class="progress mt-2" style="height: 3px;">
-            <div class="progress-bar bg-primary" [style.width.%]="task.isCompleted ? 100 : 0"></div>
+          <div class="progress mt-2" style="height: 3px">
+            <div
+              class="progress-bar bg-primary"
+              [style.width.%]="task.isCompleted ? 100 : 0"
+            ></div>
           </div>
         </div>
-      }
-      
-      @if(weeklyTasks().length === 0) {
+        } @if(weeklyTasks().length === 0) {
         <div class="text-center py-4">
-          <button type="button"  class="btn btn-white"  data-bs-toggle="modal" data-bs-target="#taskModal">
+          <button
+            type="button"
+            class="btn btn-white"
+            data-bs-toggle="modal"
+            data-bs-target="#taskModal"
+          >
             <i class="fas fa-plus-circle fa-2x mb-2"></i>
           </button>
-          <p>No weekly tasks yet.<br>Drag tasks here or create new ones!</p>
+          <p>No weekly tasks yet.<br />Drag tasks here or create new ones!</p>
         </div>
-      }
+        }
+      </div>
     </div>
-  </div>
 
-  <!-- Monthly Tasks Column -->
-  <div class="task-column" 
-    cdkDropList
-    [cdkDropListData]="monthlyTasks()"
-    (cdkDropListDropped)="drop($event, 'Monthly')"
-    id="monthly-list"
-  >
-    <div class="card-header bg-secondary text-white">
-      <h5>
-        <i class="fas fa-calendar-week me-2"></i>Monthly Tasks
-      </h5>
-      <p class="d-block mt-1">{{ weeklyTasks().length }} tasks</p>
-    </div>
-    <div class="card-body">
-      @for(task of monthlyTasks(); track task.id) {
+    <!-- Monthly Tasks Column -->
+    <div
+      class="task-column"
+      cdkDropList
+      [cdkDropListData]="monthlyTasks()"
+      (cdkDropListDropped)="drop($event, 'Monthly')"
+      id="monthly-list"
+    >
+      <div class="card-header bg-secondary text-white">
+        <h5><i class="fas fa-calendar-week me-2"></i>Monthly Tasks</h5>
+        <p class="d-block mt-1">{{ weeklyTasks().length }} tasks</p>
+      </div>
+      <div class="card-body">
+        @for(task of monthlyTasks(); track task.id) {
         <div class="task-item" cdkDrag [cdkDragData]="task" [id]="task.id">
           <div class="task-actions">
             <button class="action-btn edit-btn" (click)="editTaskModal(task)">
               ✏️
             </button>
-            <button class="action-btn delete-btn" (click)="deleteTask(task.id!)">
+            <button
+              class="action-btn delete-btn"
+              (click)="deleteTask(task.id!)"
+            >
               🗑️
             </button>
           </div>
-          
+
           <div class="form-check">
-            <input 
-              type="checkbox" 
-              [id]="task.id" 
-              class="form-check-input" 
+            <input
+              type="checkbox"
+              [id]="task.id"
+              class="form-check-input"
               [attr.aria-label]="task.taskName"
               [checked]="task.isCompleted"
               (change)="toggleTaskCompletion(task)"
             />
-            <label [for]="task.id" class="form-check-label" [class.text-decoration-line-through]="task.isCompleted">
+            <label
+              [for]="task.id"
+              class="form-check-label"
+              [class.text-decoration-line-through]="task.isCompleted"
+            >
               {{ task.taskName }}
             </label>
           </div>
-          
+
           <div class="d-flex justify-content-between align-items-center mb-2">
             <span class="badge bg-info">
               <i class="fas fa-calendar me-1"></i>
-              {{ task.dueDate | date: 'shortDate' }}
+              {{ task.dueDate | date : "shortDate" }}
             </span>
             <small class="">
               <i class="fas fa-clock me-1"></i>
               Monthly
             </small>
           </div>
-          
+
           @if(task.description) {
-            <p class="mb-0">
-              <i class="fas fa-align-left me-1"></i>
-              {{ task.description }}
-            </p>
+          <p class="mb-0">
+            <i class="fas fa-align-left me-1"></i>
+            {{ task.description }}
+          </p>
           }
-          
+
           <!-- Progress indicator -->
-          <div class="progress mt-2" style="height: 3px;">
-            <div class="progress-bar bg-secondary" [style.width.%]="task.isCompleted ? 100 : 0"></div>
+          <div class="progress mt-2" style="height: 3px">
+            <div
+              class="progress-bar bg-secondary"
+              [style.width.%]="task.isCompleted ? 100 : 0"
+            ></div>
           </div>
         </div>
-      }
-      
-      @if(monthlyTasks().length === 0) {
+        } @if(monthlyTasks().length === 0) {
         <div class="text-center py-4">
-          <button type="button" class="btn btn-white" data-bs-toggle="modal" data-bs-target="#taskModal">
+          <button
+            type="button"
+            class="btn btn-white"
+            data-bs-toggle="modal"
+            data-bs-target="#taskModal"
+          >
             <i class="fas fa-plus-circle fa-2x mb-2"></i>
           </button>
-          <p>No monthly tasks yet.<br>Drag tasks here or create new ones!</p>
+          <p>No monthly tasks yet.<br />Drag tasks here or create new ones!</p>
         </div>
-      }
+        }
+      </div>
     </div>
   </div>
-</div>
 
-<div class="modal fade" id="taskModal" aria-labelledby="taskModalLabel" aria-hidden="true" tabindex="-1" #taskModalRef>
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header border-0 pb-0">
-        <h5 class="modal-title">Create New Task</h5>
-        <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form >
-          <div class="mb-3">
-            <label for="" class="form-label">Task Title</label>
-            <input type="text" class="form-control" name="new-task-" [(ngModel)]="newTask.taskName" required>
-          </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Task Frequency</label>
-            <select name="" id="" class="form-select bg-dark text-white" name="new-task-frequency" [(ngModel)]="newTask.frequency">
-              <option value="Daily">Daily</option>
-              <option value="Weekly">Weekly</option>
-              <option value="Monthly">Monthly</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Due Date</label>
-            <input type="date" class="form-control bg-dark text-white" name="new-task-due-date" [(ngModel)]="newTask.dueDate">
-          </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Description</label>
-            <textarea class="form-control bg-dark text-white" name="new-task-description" [(ngModel)]="newTask.description"></textarea>
-          </div>
-          <div class="modal-footer">
-            <app-button data-bs-dismiss="taskModal" (clickEmit)="onSaveTask()">Add Task</app-button>
-            <app-button (clickEmit)="closeModal()" btnType="cancel" >Cancel</app-button>
-          </div>
-        </form>
+  <div
+    class="modal fade"
+    id="taskModal"
+    aria-labelledby="taskModalLabel"
+    aria-hidden="true"
+    tabindex="-1"
+    #taskModalRef
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title">Create New Task</h5>
+          <button
+            class="btn-close"
+            type="button"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="" class="form-label">Task Title</label>
+              <input
+                type="text"
+                class="form-control"
+                name="new-task-"
+                [(ngModel)]="newTask.taskName"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Task Frequency</label>
+              <select
+                name=""
+                id=""
+                class="form-select bg-dark text-white"
+                name="new-task-frequency"
+                [(ngModel)]="newTask.frequency"
+              >
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Due Date</label>
+              <input
+                type="date"
+                class="form-control bg-dark text-white"
+                name="new-task-due-date"
+                [(ngModel)]="newTask.dueDate"
+                #taskDateInput
+                appOpenDatePicker
+              />
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Description</label>
+              <textarea
+                class="form-control bg-dark text-white"
+                name="new-task-description"
+                [(ngModel)]="newTask.description"
+              ></textarea>
+            </div>
+            <div class="modal-footer">
+              <app-button data-bs-dismiss="taskModal" (clickEmit)="onSaveTask()"
+                >Add Task</app-button
+              >
+              <app-button (clickEmit)="closeModal()" btnType="cancel"
+                >Cancel</app-button
+              >
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

@@ -1,107 +1,198 @@
 <div class="bg-particles" id="particles"></div>
 
 <header class="header">
-
   <div class="nav-container">
-
-    <nav class="navbar navbar-expand-lg navbar-dark">   
-    <div class="logo">
-      <a routerLink="home" class="navbar-brand fw-bold">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="logo">
+        <a routerLink="home" class="navbar-brand fw-bold">
           <i class="fas fa-check-circle me-2"></i>
           Task Master
         </a>
-    </div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-          aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+      </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarContent"
+        aria-controls="navbarContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-links">
-            @if (userSignal()) {
-            <li class="">
-              <a class="" aria-current="page" routerLink="dashboard" routerLinkActive="active">Dashboard</a>
-            </li>
-            <li class="">
-              <a class="" aria-current="" routerLink="tasks" routerLinkActive="active">Tasks</a>
-            </li>
-            <li class="">
-              <a class="" aria-current="" routerLink="goals" routerLinkActive="active">Goals</a>
-            </li>
-            <li class="">
-              <a class="" aria-current="" routerLink="reminders" routerLinkActive="active">Reminders</a>
-            </li>
-            }
-          </ul>
-          <div class="user-section">
-            @if (userSignal()) {
-              <span class=""><i class="fas fa-user me-2"></i>{{ userSignal()?.email }}</span>
-              <button class="logout-btn" (click)="onLogout()">
-                Logout
-              </button >
-            } @else {
-              <button class="btn btn-outline-light btn-login" data-bs-toggle="modal" data-bs-target="#authModal" #registerTrigger>
-                <i class="fas fa-user me-2"></i> Login
-              </button>
-            }
-          </div>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-links">
+          @if (userSignal()) {
+          <li class="">
+            <a
+              class=""
+              aria-current="page"
+              routerLink="dashboard"
+              routerLinkActive="active"
+              >Dashboard</a
+            >
+          </li>
+          <li class="">
+            <a
+              class=""
+              aria-current=""
+              routerLink="tasks"
+              routerLinkActive="active"
+              >Tasks</a
+            >
+          </li>
+          <li class="">
+            <a
+              class=""
+              aria-current=""
+              routerLink="goals"
+              routerLinkActive="active"
+              >Goals</a
+            >
+          </li>
+          <li class="">
+            <a
+              class=""
+              aria-current=""
+              routerLink="reminders"
+              routerLinkActive="active"
+              >Reminders</a
+            >
+          </li>
+          }
+        </ul>
+        <div class="user-section">
+          @if (userSignal()) {
+          <span class=""
+            ><i class="fas fa-user me-2"></i>{{ userSignal()?.email }}</span
+          >
+          <button class="logout-btn" (click)="onLogout()">Logout</button>
+          } @else {
+          <button
+            class="btn btn-outline-light btn-login"
+            data-bs-toggle="modal"
+            data-bs-target="#authModal"
+            #registerTrigger
+          >
+            <i class="fas fa-user me-2"></i> Login
+          </button>
+          }
+        </div>
       </div>
     </nav>
-
   </div>
 </header>
 
-
-<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true"  #someModal>
+<div
+  class="modal fade"
+  id="authModal"
+  tabindex="-1"
+  aria-labelledby="authModalLabel"
+  aria-hidden="true"
+  #someModal
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header border-0 pb-0">
-        <ul class="nav nav-tabs nav-fill w-100 border-bottom-0" id="authTab" role="tablist">
+        <ul
+          class="nav nav-tabs nav-fill w-100 border-bottom-0"
+          id="authTab"
+          role="tablist"
+        >
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#loginTabPane" type="button" role="tab" aria-controls="loginTabPane" aria-selected="true">
+            <button
+              class="nav-link active"
+              id="login-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#loginTabPane"
+              type="button"
+              role="tab"
+              aria-controls="loginTabPane"
+              aria-selected="true"
+            >
               Login
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signupTabPane" type="button" role="tab" aria-controls="signupTabPane" aria-selected="false">
+            <button
+              class="nav-link"
+              id="signup-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#signupTabPane"
+              type="button"
+              role="tab"
+              aria-controls="signupTabPane"
+              aria-selected="false"
+            >
               Sign Up
             </button>
           </li>
-          <button type="button" class="btn-close btn-close-white ms-auto me-2" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close btn-close-white ms-auto"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </ul>
       </div>
       <div class="modal-body pt-3">
         <div class="tab-content" id="authTabContent">
-
           <!-- Login Tab -->
-          <div class="tab-pane fade show active" id="loginTabPane" role="tabpanel" aria-labelledby="login-tab">
+          <div
+            class="tab-pane fade show active"
+            id="loginTabPane"
+            role="tabpanel"
+            aria-labelledby="login-tab"
+          >
             <div class="login-form">
               <h2>Login</h2>
               <form (submit)="onLogin()">
                 <div class="mb-3">
                   <label for="" class="form-label">Login email</label>
-                  <input class="form-control bg-dark text-white" type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
+                  <input
+                    class="form-control bg-dark text-white"
+                    type="email"
+                    [(ngModel)]="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                  />
                 </div>
                 <div class="mb-3">
                   <label for="" class="form-label">Login password</label>
-                  <input class="form-control bg-dark text-white" type="password" [(ngModel)]="password" name="password" placeholder="Password" required />
+                  <input
+                    class="form-control bg-dark text-white"
+                    type="password"
+                    [(ngModel)]="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                  />
                 </div>
                 <div class="mb-3 d-flex justify-content-center">
                   <app-button (clickEmit)="onLogin()">Login</app-button>
                 </div>
               </form>
               @if(error) {
-                <p class="text-danger">{{ error }}</p>
+              <p class="text-danger">{{ error }}</p>
               }
             </div>
           </div>
 
           <!-- Sign Up Tab -->
-          <div class="tab-pane fade" id="signupTabPane" role="tabpanel" aria-labelledby="signup-tab">
-              <div class="register-form">
+          <div
+            class="tab-pane fade"
+            id="signupTabPane"
+            role="tabpanel"
+            aria-labelledby="signup-tab"
+          >
+            <div class="register-form">
               <h2>Sign Up</h2>
               <form (submit)="onRegister()">
                 <div class="mb-3">
-                  <label for="" class="form-label">Register email address</label>
+                  <label for="" class="form-label"
+                    >Register email address</label
+                  >
                   <input
                     type="email"
                     [(ngModel)]="registerObject.emailId"
@@ -128,11 +219,10 @@
                 </div>
               </form>
               @if(error) {
-                <p class="text-danger">{{ error }}</p>
+              <p class="text-danger">{{ error }}</p>
               }
             </div>
           </div>
-
         </div>
       </div>
     </div>

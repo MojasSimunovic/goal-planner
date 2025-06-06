@@ -1,20 +1,41 @@
-import { Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { Task } from '../../model/task';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { DatePipe } from '@angular/common';
-import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  DragDropModule,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { TitleComponent } from '../../shared/title/title.component';
-import { ButtonComponent } from "../../shared/button/button.component";
-import { SectionTitleComponent } from "../../shared/section-title/section-title.component";
+import { ButtonComponent } from '../../shared/button/button.component';
+import { SectionTitleComponent } from '../../shared/section-title/section-title.component';
+import { AutoOpenDatePickerDirective } from '../../directives/open-date-picker.directive';
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-task-list',
-  imports: [FormsModule, DatePipe, DragDropModule, TitleComponent, ButtonComponent],
+  imports: [
+    FormsModule,
+    DatePipe,
+    DragDropModule,
+    TitleComponent,
+    ButtonComponent,
+    AutoOpenDatePickerDirective,
+  ],
   templateUrl: './task-list.component.html',
-  styleUrl: './task-list.component.css'
+  styleUrl: './task-list.component.css',
 })
 export class TaskListComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
@@ -23,14 +44,14 @@ export class TaskListComponent implements OnInit {
   weeklyTasks = signal<Task[]>([]);
   monthlyTasks = signal<Task[]>([]);
   taskList = signal<Task[]>([]);
-  isEditing : boolean = false;
+  isEditing: boolean = false;
   newTask: Task = {
     taskName: '',
     description: '',
     frequency: '',
-    dueDate: '',   
+    dueDate: '',
     isCompleted: false,
-  }
+  };
   @ViewChild('taskModalRef') modalRef!: ElementRef;
   ngOnInit(): void {
     if (this.modalRef) {
@@ -52,12 +73,18 @@ export class TaskListComponent implements OnInit {
     this.taskService.getAllTasksByUser().subscribe((data: Task[]) => {
       const sortedTasks = data.sort((a, b) => (a.order || 0) - (b.order || 0));
       // Filter and set each column's tasks
-      this.dailyTasks.set(sortedTasks.filter(task => task.frequency === 'Daily'));
-      this.weeklyTasks.set(sortedTasks.filter(task => task.frequency === 'Weekly'));
-      this.monthlyTasks.set(sortedTasks.filter(task => task.frequency === 'Monthly'));
+      this.dailyTasks.set(
+        sortedTasks.filter((task) => task.frequency === 'Daily')
+      );
+      this.weeklyTasks.set(
+        sortedTasks.filter((task) => task.frequency === 'Weekly')
+      );
+      this.monthlyTasks.set(
+        sortedTasks.filter((task) => task.frequency === 'Monthly')
+      );
     });
   }
- 
+
   async onSaveTask() {
     if (this.isEditing) {
       this.taskService.onEditEntireTask(this.newTask).subscribe();
@@ -66,13 +93,13 @@ export class TaskListComponent implements OnInit {
       this.resetNewTask();
     } else {
       try {
-      const currentTasks = this.getTasksByFrequency(this.newTask.frequency);
-      this.newTask.order = currentTasks.length;
+        const currentTasks = this.getTasksByFrequency(this.newTask.frequency);
+        this.newTask.order = currentTasks.length;
 
-      await this.taskService.createTask(this.newTask).toPromise();
-      this.getAllTasksByUser();
-      this.closeModal();
-      this.resetNewTask();
+        await this.taskService.createTask(this.newTask).toPromise();
+        this.getAllTasksByUser();
+        this.closeModal();
+        this.resetNewTask();
       } catch (error) {
         console.error('Error creating task:', error);
       }
@@ -86,34 +113,46 @@ export class TaskListComponent implements OnInit {
       frequency: '',
       dueDate: '',
       isCompleted: false,
-      order: 0
-    }
+      order: 0,
+    };
   }
   private getTasksByFrequency(frequency: string): Task[] {
     switch (frequency) {
-      case 'Daily': return this.dailyTasks();
-      case 'Weekly': return this.weeklyTasks();
-      case 'Monthly': return this.monthlyTasks();
-      default: return [];
+      case 'Daily':
+        return this.dailyTasks();
+      case 'Weekly':
+        return this.weeklyTasks();
+      case 'Monthly':
+        return this.monthlyTasks();
+      default:
+        return [];
     }
   }
   async drop(event: CdkDragDrop<Task[]>, category: string) {
     const draggedTask = event.item.data;
-    
+
     if (event.previousContainer === event.container) {
       // Moving within the same column
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+
       try {
         await this.taskService.reorderTasksInColumn(
-          draggedTask.id!, 
-          category, 
+          draggedTask.id!,
+          category,
           event.currentIndex
         );
       } catch (error) {
         console.error('Error reordering task:', error);
         // Revert the local change if Firebase update fails
-        moveItemInArray(event.container.data, event.currentIndex, event.previousIndex);
+        moveItemInArray(
+          event.container.data,
+          event.currentIndex,
+          event.previousIndex
+        );
       }
     } else {
       // Moving between different columns
@@ -126,8 +165,8 @@ export class TaskListComponent implements OnInit {
 
       try {
         await this.taskService.editTask(
-          draggedTask.id!, 
-          category, 
+          draggedTask.id!,
+          category,
           event.currentIndex
         );
       } catch (error) {
