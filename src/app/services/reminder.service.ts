@@ -16,6 +16,7 @@ import {
 } from '@angular/fire/firestore';
 import { LoginService } from './login.service';
 import { getAuth } from '@angular/fire/auth';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +49,20 @@ export class ReminderService {
         ? reminder.reminderDateTime.toISOString()
         : reminder.reminderDateTime
     });
+  }
+
+  toggleAcknowledge(reminderId: string): Observable<void> {
+    const reminderDocRef = doc(this.firestore, `reminders/${reminderId}`);
+    return from(getDoc(reminderDocRef)).pipe(
+      switchMap(snapshot => {
+        if (!snapshot.exists()) {
+          throw new Error('Reminder not found');
+        }
+        const reminder = snapshot.data() as Reminder;
+        return from(updateDoc(reminderDocRef, {
+          isAcknowledged: !reminder.isAcknowledged
+        }));
+      })
+    );
   }
 }

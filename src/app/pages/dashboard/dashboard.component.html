@@ -1,6 +1,7 @@
-
 <div class="container">
-  <app-title>Dashboard</app-title>
+  <div class="title-button-container">
+    <app-title>Dashboard</app-title>
+  </div>
   <div class="stats-grid">
     @for(card of summaryCards(); track $index) {
       <app-dashboard-card [card]="card" (click)="navigateTo(card.link)"></app-dashboard-card>

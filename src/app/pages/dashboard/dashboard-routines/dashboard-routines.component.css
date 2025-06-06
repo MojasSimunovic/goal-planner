@@ -107,3 +107,57 @@
     color: rgba(255, 0, 0, 0.637);
   }
 }
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all 0.2s ease;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.custom-checkbox:hover {
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.1);
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+}
+
+.custom-checkbox.checked {
+  background: #00d4ff;
+  border-color: #00d4ff;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
+}
+
+/* Update table cell styles to accommodate the new checkbox */
+.routines-table td {
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  vertical-align: middle;
+}
+
+/* Add a subtle hover effect to the entire row */
+.routines-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Make the table more compact on mobile */
+@media (max-width: 768px) {
+  .custom-checkbox {
+    width: 18px;
+    height: 18px;
+  }
+
+  .routines-table th,
+  .routines-table td {
+    padding: 0.5rem 0.25rem;
+  }
+}

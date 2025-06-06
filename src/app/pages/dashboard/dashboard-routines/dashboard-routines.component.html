@@ -18,13 +18,12 @@
                     <button class="btn btn-sm" (click)="onRemoveRoutine(routine)"><i class="fas fa-trash"></i></button>
                   </td>
                   @for(completed of routine.completions;track $index) {
-                  <td (click)="markAsCompleted(routine, $index)">
-                    @if(completed) {
-                      <span class="text-success fw-bold">✔</span>
-                    }
+                  <td>
+                    <div class="custom-checkbox" (click)="markAsCompleted(routine, $index)" [class.checked]="completed">
+                    </div>
                   </td>
                   }
-            </tr>
+                </tr>
                 }
           </tbody>
         </table>

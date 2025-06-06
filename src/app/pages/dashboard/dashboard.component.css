@@ -29,3 +29,16 @@
 .modal-footer {
   border-top: none;
 }
+
+.title-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.title-button-container app-button {
+  flex-shrink: 0;
+}
