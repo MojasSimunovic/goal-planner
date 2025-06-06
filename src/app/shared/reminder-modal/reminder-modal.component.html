@@ -1,27 +1,60 @@
-<div class="modal fade" id="reminderModal" aria-labelledby="reminderModalLabel" aria-hidden="true" tabindex="-1" #reminderModalRef>
+<div
+  class="modal fade"
+  id="reminderModal"
+  aria-labelledby="reminderModalLabel"
+  aria-hidden="true"
+  tabindex="-1"
+  #reminderModalRef
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header border-0 pb-0">
         <h5 class="modal-title">Create New Reminder</h5>
-        <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
+        <button
+          class="btn-close"
+          type="button"
+          data-bs-dismiss="modal"
+        ></button>
       </div>
       <div class="modal-body">
-        <form >
+        <form>
           <div class="mb-3">
             <label for="" class="form-label">Reminder Title</label>
-            <input type="text" class="form-control" name="new-reminder-title" [(ngModel)]="newReminder.title" required>
+            <input
+              type="text"
+              class="form-control"
+              name="new-reminder-title"
+              [(ngModel)]="newReminder.title"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="" class="form-label">Reminder Date Time</label>
-            <input type="datetime-local" class="form-control bg-dark text-white" name="new-reminder-date" [(ngModel)]="newReminder.reminderDateTime">
+            <input
+              type="datetime-local"
+              class="form-control bg-dark text-white"
+              name="new-reminder-date"
+              appOpenDatePicker
+              [(ngModel)]="newReminder.reminderDateTime"
+            />
           </div>
           <div class="mb-3">
             <label for="" class="form-label">Reminder Description</label>
-            <textarea class="form-control bg-dark text-white" name="new-reminder-description" [(ngModel)]="newReminder.description"></textarea>
+            <textarea
+              class="form-control bg-dark text-white"
+              name="new-reminder-description"
+              [(ngModel)]="newReminder.description"
+            ></textarea>
           </div>
           <div class="modal-footer">
-            <app-button data-bs-dismiss="taskModal" (clickEmit)="onSaveReminder()">Create reminder</app-button>
-             <app-button (clickEmit)="closeModal()" btnType="cancel">Cancel</app-button>
+            <app-button
+              data-bs-dismiss="taskModal"
+              (clickEmit)="onSaveReminder()"
+              >Create reminder</app-button
+            >
+            <app-button (clickEmit)="closeModal()" btnType="cancel"
+              >Cancel</app-button
+            >
           </div>
         </form>
       </div>

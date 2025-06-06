@@ -135,6 +135,14 @@ body {
   box-shadow: 0 10px 30px rgba(0, 188, 212, 0.2);
 }
 
+.btn-close {
+  filter: invert(1) !important;
+}
+
+input {
+  color-scheme: dark !important;
+}
+
 .particle {
   position: absolute;
   background: linear-gradient(45deg, #00d4ff, #7c3aed);

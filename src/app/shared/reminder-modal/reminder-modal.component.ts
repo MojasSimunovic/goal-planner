@@ -1,17 +1,25 @@
-import { DatePipe, NgClass } from '@angular/common';
-import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Reminder } from '../../model/reminder';
 import { ReminderService } from '../../services/reminder.service';
-import { ButtonComponent } from "../button/button.component";
+import { ButtonComponent } from '../button/button.component';
+import { AutoOpenDatePickerDirective } from '../../directives/open-date-picker.directive';
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-reminder-modal',
-  imports: [FormsModule, ButtonComponent],
+  imports: [FormsModule, ButtonComponent, AutoOpenDatePickerDirective],
   templateUrl: './reminder-modal.component.html',
-  styleUrl: './reminder-modal.component.css'
+  styleUrl: './reminder-modal.component.css',
 })
 export class ReminderModalComponent {
   @Input() initialTitle: string = '';
@@ -24,11 +32,11 @@ export class ReminderModalComponent {
   private modal: any;
 
   newReminder: Reminder = {
-    title: "",
-    description: "",
+    title: '',
+    description: '',
     reminderDateTime: new Date(),
     isAcknowledged: false,
-  }
+  };
 
   ngOnChanges() {
     if (this.initialTitle) {
@@ -64,8 +72,8 @@ export class ReminderModalComponent {
 
   private resetForm() {
     this.newReminder = {
-      title: "",
-      description: "",
+      title: '',
+      description: '',
       reminderDateTime: new Date(),
       isAcknowledged: false,
     };

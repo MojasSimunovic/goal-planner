@@ -1,22 +1,43 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { LoginService } from './services/login.service';
-import { UserLogin} from './model/user';
+import { UserLogin } from './model/user';
 import { NgIf } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ButtonComponent } from "./shared/button/button.component";
+import { ButtonComponent } from './shared/button/button.component';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, RouterLink, RouterLinkActive, ButtonComponent],
+  imports: [
+    RouterOutlet,
+    FormsModule,
+    RouterLink,
+    RouterLinkActive,
+    ButtonComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent  implements OnInit {
+export class AppComponent implements OnInit {
   private modal: any;
   email = '';
   password = '';
@@ -28,7 +49,7 @@ export class AppComponent  implements OnInit {
   userSignal = toSignal(this.loginService.user$);
   registerObject = {
     emailId: '',
-    password: ''
+    password: '',
   };
   isLoggedIn = signal(false);
   private subscription: Subscription = new Subscription();
@@ -36,7 +57,7 @@ export class AppComponent  implements OnInit {
     // const modal = new bootstrap.Modal(this.modalRef);
     this.createParticles();
     this.subscription.add(
-      this.loginService.click$.subscribe(data => {
+      this.loginService.click$.subscribe((data) => {
         this.registerTriggerRef.nativeElement.click();
       })
     );
@@ -44,7 +65,6 @@ export class AppComponent  implements OnInit {
   ngAfterViewInit() {
     const modalElement = document.getElementById('authModal');
     if (modalElement) {
-      console.log(modalElement)
       this.modal = new (window as any).bootstrap.Modal(modalElement);
     }
   }
@@ -52,9 +72,9 @@ export class AppComponent  implements OnInit {
     try {
       await this.loginService.login(this.email, this.password);
       this.closeModal();
-      setTimeout(()=> {
+      setTimeout(() => {
         this.router.navigate(['/dashboard']);
-      }, 1000)
+      }, 1000);
     } catch (err: any) {
       this.error = err.message;
     }
@@ -62,11 +82,14 @@ export class AppComponent  implements OnInit {
   async onRegister() {
     this.error = null;
     try {
-      await this.loginService.register(this.registerObject.emailId, this.registerObject.password);
+      await this.loginService.register(
+        this.registerObject.emailId,
+        this.registerObject.password
+      );
       this.closeModal();
-      setTimeout(()=> {
+      setTimeout(() => {
         this.router.navigate(['/dashboard']);
-      }, 1000)
+      }, 1000);
     } catch (err: any) {
       this.error = err.message;
     }
@@ -74,7 +97,7 @@ export class AppComponent  implements OnInit {
   async onLogout() {
     this.error = null;
     try {
-      await this.loginService.logout()
+      await this.loginService.logout();
     } catch (err: any) {
       this.error = err.message;
     }
@@ -99,9 +122,8 @@ export class AppComponent  implements OnInit {
       particle.style.left = Math.random() * 100 + '%';
       particle.style.top = Math.random() * 100 + '%';
       particle.style.animationDelay = Math.random() * 6 + 's';
-      particle.style.animationDuration = (Math.random() * 3 + 3) + 's';       
+      particle.style.animationDuration = Math.random() * 3 + 3 + 's';
       container?.appendChild(particle);
     }
   }
-
 }
