@@ -20,7 +20,7 @@
   .card-title {
     color: #f1f1f1;
     font-weight: 600;
-    max-width: 80%;
+    max-width: 200px;
     word-break: break-word;
   }
 
@@ -85,18 +85,45 @@
   }
 }
 
+.action-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+.delete-btn {
+  background: rgba(255, 71, 87, 0.2);
+  color: #ff4757;
+}
+
 .animated-hover:not(.card) {
   position: relative;
   overflow: hidden;
   &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s ease;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s ease;
   }
 }
 
@@ -105,8 +132,14 @@
 }
 
 @keyframes fadeInUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .title-button-container {
