@@ -32,6 +32,7 @@ export class RoutinesService {
     const auth = getAuth();
     this.userId = auth.currentUser?.uid || '';
   }
+
   createNewRoutine(routine: Routine) {
     routine = { ...routine, userId: this.userId };
     const routineRef = collection(this.firestore, 'routines');
@@ -56,24 +57,25 @@ export class RoutinesService {
 
   async checkAndResetWeeklyRoutines(): Promise<void> {
     const currentMonday = this.getMonday(new Date());
-    const settingsRef = this.afs.doc(
-      `users/${this.userId}/settings/weeklyReset`
-    );
-
+    const settingsRef = this.afs.doc(`users/${this.userId}/settings/weeklyReset`);
     try {
-      // const settingsDoc = await firstValueFrom(settingsRef.get());
       const settingsDocSnap = await getDoc(
         doc(this.firestore, `users/${this.userId}/settings/weeklyReset`)
       );
-      const data = settingsDocSnap.data() as
-        | { lastResetDate?: string }
-        | undefined;
+      const data = settingsDocSnap.data() as { lastResetDate?: string } | undefined;
       const lastResetDateStr = data?.lastResetDate;
 
-      if (
-        lastResetDateStr &&
-        new Date(lastResetDateStr).getTime() === currentMonday.getTime()
-      ) {
+      // Lean date comparison (ignore time)
+      let alreadyReset = false;
+      if (lastResetDateStr) {
+        const lastReset = new Date(lastResetDateStr);
+        alreadyReset =
+          lastReset.getFullYear() === currentMonday.getFullYear() &&
+          lastReset.getMonth() === currentMonday.getMonth() &&
+          lastReset.getDate() === currentMonday.getDate();
+      }
+
+      if (alreadyReset) {
         return;
       }
 
@@ -124,5 +126,11 @@ export class RoutinesService {
     targetDate.setHours(0, 0, 0, 0);
 
     return targetDate;
+  }
+
+  public async initializeGlobalWeeklyReset(): Promise<void> {
+    const currentMonday = this.getMonday(new Date());
+    const settingsDocRef = doc(this.firestore, 'settings/weeklyReset');
+    await setDoc(settingsDocRef, { lastResetDate: currentMonday.toISOString() });
   }
 }

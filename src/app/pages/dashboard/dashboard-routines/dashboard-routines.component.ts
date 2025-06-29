@@ -23,6 +23,7 @@ export class DashboardRoutinesComponent implements OnInit {
 
   ngOnInit(): void {
     this.routineService.checkAndResetWeeklyRoutines();
+    this.routineService.initializeGlobalWeeklyReset();
     this.getAllRoutines();
   }
   getAllRoutines() {
